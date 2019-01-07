@@ -5,6 +5,9 @@
   "main": "src/main.js",
   "scripts": {
     "test": "node tests/server",
+    "build:components": "babel clients/templates/components --out-dir build/components --source-maps",
+    "build:clients": "webpack --config webpack.build.config.js",
+    "build": "rm -rf build && npm run build:components && npm run build:clients",
     "dev": "webpack-dev-server --config webpack.dev.config.js  --port 3200 --host 0.0.0.0 --watch-poll"
   },
   "repository": {
@@ -26,6 +29,7 @@
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
