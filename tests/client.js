@@ -3,6 +3,8 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
+import Signup from '../clients/templates/components/sign-up-form'
+
 console.log('Client script')
 
 class App extends Component {
@@ -12,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div> 
-        <h2> Hello </h2>
+        <Signup />
       </div>
     )
   }
