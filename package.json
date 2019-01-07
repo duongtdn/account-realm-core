@@ -4,7 +4,8 @@
   "description": "core apis of account-realm provider",
   "main": "src/main.js",
   "scripts": {
-    "test": "node tests/server"
+    "test": "node tests/server",
+    "dev": "webpack-dev-server --config webpack.dev.config.js  --port 3200 --host 0.0.0.0 --watch-poll"
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,19 @@
   },
   "homepage": "https://github.com/duongtdn/account-realm-core#readme",
   "dependencies": {
-    "express-api-builder": "^1.2.0"
+    "express-api-builder": "^1.2.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
-    "express": "^4.16.4"
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "express": "^4.16.4",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14"
   }
 }
