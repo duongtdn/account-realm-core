@@ -1,3 +1,4 @@
-.build/
+clients/scripts/
+clients/templates/components/
 node_modules/
 npm-debug.*
