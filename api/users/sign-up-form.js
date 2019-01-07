@@ -1,9 +1,17 @@
 "use strict"
 
-function done() {
+const React = require('react')
+const { renderToString } = require('react-dom/server')
+
+const html = require('../../clients/templates/html')
+const Signup = require('../../build/components/sign-up-form')
+
+function render(helpers) {
   return function(req, res) {
-    res.end("sign-up-form: worked!\n")
+    const reactDom = renderToString(React.createElement(Signup.default))
+    res.writeHead( 200, { "Content-Type": "text/html" } );
+    res.end(html({title: 'Signup', dom: reactDom}))
   }
 }
 
-module.exports = done
+module.exports = render
