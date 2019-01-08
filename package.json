@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/duongtdn/account-realm-core#readme",
   "dependencies": {
-    "authenform-utils": "^0.1.0",
+    "authenform-utils": "^0.2.0",
     "express-api-builder": "^1.2.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
@@ -40,7 +40,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "webpack": "^4.28.3",
-    "webpack-cli": "^3.2.0",
+    "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   }
 }
