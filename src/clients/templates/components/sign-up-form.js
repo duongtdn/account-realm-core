@@ -77,9 +77,9 @@ class Email extends Component {
     }
 
     this.setState({ syncing: true})
-    xhttp.get(`/users/${email}`, (status, reponse) => {
+    xhttp.get(`/users/${email}`, (status, response) => {
       const syncing = false
-      if (status === 404) {
+      if (status === 404 && response === 'email not found') {
         this.setState({ email, error, syncing})
         this.props.onConfirm && this.props.onConfirm(email)
         return
@@ -89,6 +89,7 @@ class Email extends Component {
         this.setState({ error, syncing })
         return
       }
+      this.props.onError && this.props.onError(status)
     })
 
   }
@@ -109,8 +110,18 @@ export default class Signup extends Component {
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
           <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Create New Account </h3>
         </header>
-        <Email onConfirm={this.getEmail} />
+        <Email  onConfirm={this.getEmail} 
+                onError={this.onError}
+        />
       </div>
     )
+  }
+
+  getEmail(email) {
+    console.log(email)
+  }
+
+  onError(status) {
+    console.log(status)
   }
 }
