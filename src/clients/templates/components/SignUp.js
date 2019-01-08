@@ -95,7 +95,7 @@ class Email extends Component {
   }
 }
 
-export default class Signup extends Component {
+export default class SignUp extends Component {
   constructor(props) {
     super(props)
     this.state = {
