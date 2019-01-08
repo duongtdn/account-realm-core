@@ -1,4 +1,4 @@
-clients/scripts/
-clients/templates/components/
+src/clients/scripts/
+src/clients/templates/components/
 node_modules/
 npm-debug.*
