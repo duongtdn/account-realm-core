@@ -343,12 +343,13 @@ export default class SignUp extends Component {
       <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
         <Email  display = {this.display('email')}
                 close = {this.props.close}
+                onConfirm = {this.getData}
                 urlBasePath = {urlBasePath}
-                onConfirm = {this.getEmail}
                 onError = {this.onError}   
         />
         <Password display = {this.display('password')}
                   close = {this.props.close}   
+                  onConfirm = {this.getData}
         />
       </div>
     )
@@ -358,8 +359,8 @@ export default class SignUp extends Component {
     return this.state.flow === flow;
   }
 
-  getEmail(email) {
-    console.log(email)
+  getData(data) {
+    console.log(data)
   }
 
   onError(status) {
