@@ -25,11 +25,7 @@ api.add('/session/clean',
 /* resource: users */
 api.add('/users',
   {
-    post: require('./new-user')
-  }
-)
-api.add('/users/:username', 
-  {
+    post: require('./new-user'),
     get: require('./get-user')
   }
 )
