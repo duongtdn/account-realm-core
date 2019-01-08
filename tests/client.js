@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div> 
-        <Signup />
+        <Signup urlBasePath = '/api' />
       </div>
     )
   }

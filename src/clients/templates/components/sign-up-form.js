@@ -77,7 +77,7 @@ class Email extends Component {
     }
 
     this.setState({ syncing: true})
-    xhttp.get(`/users/${email}`, (status, response) => {
+    xhttp.get(`${this.props.urlBasePath}/users/${email}`, (status, response) => {
       const syncing = false
       if (status === 404 && response === 'email not found') {
         this.setState({ email, error, syncing})
@@ -104,14 +104,16 @@ export default class Signup extends Component {
   }
 
   render(props) {
+    const urlBasePath = this.props.urlBasePath || ''
     return (
       <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
         <header > 
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
           <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Create New Account </h3>
         </header>
-        <Email  onConfirm={this.getEmail} 
-                onError={this.onError}
+        <Email  urlBasePath = {urlBasePath}
+                onConfirm = {this.getEmail}
+                onError = {this.onError}
         />
       </div>
     )
