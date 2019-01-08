@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "node tests/server",
-    "build:components": "babel clients/templates/components --out-dir build/components --source-maps",
+    "build:components": "babel src/clients/templates/components --out-dir build/components --source-maps",
     "build:clients": "webpack --config webpack.build.config.js",
     "build": "rm -rf build && npm run build:components && npm run build:clients",
     "start": "npm run build && node tests/server",
