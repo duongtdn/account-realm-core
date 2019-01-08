@@ -177,8 +177,6 @@ class Password extends Component {
       retypePassword: ''
     }
 
-    this.originState = this.state;
-
     this.onConfirm = this.onConfirm.bind(this);
     this.getTypedPassword = this.getTypedPassword.bind(this);
     this.getReTypePassword = this.getReTypePassword.bind(this);
@@ -187,12 +185,6 @@ class Password extends Component {
     this._renderPasswordBox = this._renderPasswordBox.bind(this);
     this._renderConfirmButton = this._renderConfirmButton.bind(this);
 
-  }
-
-  componentWillReceiveProps(props) {
-    if (!props.display) {
-      this.setState(this.originState)
-    }
   }
 
   render() {
