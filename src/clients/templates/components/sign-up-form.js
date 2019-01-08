@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 
-import { isEmail, scorePassword } from '../../../libs/utils'
+import { isEmail, scorePassword } from 'authenform-utils'
 import xhttp from '../../../libs/xhttp'
 
 class Email extends Component {
@@ -10,7 +10,7 @@ class Email extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      email: 'example@mail.com',
       error: '',
       syncing: false
     }
