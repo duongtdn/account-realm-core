@@ -19,9 +19,14 @@ class Email extends Component {
   }
 
   render(props) {
+    const display = this.props.display ? 'block' : 'none';
     const borderColor = this.state.error.length === 0 ? '' : 'w3-border-red';
     return (
-      <div >
+      <div style={{ display }}>
+        <header > 
+          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Create New Account </h3>
+        </header>
         <p className="w3-text-blue-grey">
           Please enter your email to create a new account
         </p>
@@ -99,24 +104,29 @@ export default class SignUp extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {}
+      data: {},
+      flow: 'email'
     }
+    this.flow = ['email', 'password', 'fullname', 'contact', 'confirm', 'welcome']
   }
 
   render(props) {
     const urlBasePath = this.props.urlBasePath || ''
     return (
       <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
-        <header > 
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
-          <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Create New Account </h3>
-        </header>
-        <Email  urlBasePath = {urlBasePath}
+        <Email  display = {this.display('email')}
+                close = {this.props.close}
+                urlBasePath = {urlBasePath}
                 onConfirm = {this.getEmail}
-                onError = {this.onError}
+                onError = {this.onError}   
         />
+
       </div>
     )
+  }
+
+  display(flow) {
+    return this.state.flow === flow;
   }
 
   getEmail(email) {
