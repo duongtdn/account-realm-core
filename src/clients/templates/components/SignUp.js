@@ -164,7 +164,6 @@ class PasswordStrengthIndicator extends Component {
 
 }
 
-
 class Password extends Component {
   constructor(props) {
     super(props);
@@ -321,6 +320,146 @@ class Password extends Component {
   }
 }
 
+class Profile extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lastName: '',
+      middleName: '',
+      firstName: '',
+      gender: '',
+    }
+
+    this.onConfirm = this.onConfirm.bind(this);
+
+  }
+  
+  render() {
+    const display = this.props.display ? 'block' : 'none';
+    return (
+      <div className = "" style = {{ display }} >
+
+        <header >
+          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <BackButton onClick = {this.props.back} />
+        </header>
+
+        <div className = "" >
+
+          <div className ="w3-text-blue" >
+            <h3> {this.props.data.email} </h3>
+          </div>
+
+          <hr />
+
+          <div className ="w3-text-blue" >
+            Please input your profile
+          </div>
+
+          <div style = {{marginBottom: '24px'}}>
+            <p>
+              <label>Last Name</label>
+              <input    className="w3-input w3-border"
+                        type="text"
+                        value={this.state.lastName}
+                        onChange = {this.getTyped('lastName')}
+                        onKeyUp = {this.handleKeyUp('lastName')}
+              />
+            </p>
+            <p>
+              <label>Middle Name</label>
+              <input    className="w3-input w3-border"
+                        type="text"
+                        value={this.state.middleName}
+                        onChange = {this.getTyped('middleName')}
+                        onKeyUp = {this.handleKeyUp('middleName')}
+              />
+            </p>
+            <p>
+              <label>First Name</label>
+              <input    className="w3-input w3-border"
+                        type="text"
+                        value={this.state.firstName}
+                        onChange = {this.getTyped('firstName')}
+                        onKeyUp = {this.handleKeyUp('firstName')}
+              />
+            </p>
+            <p>
+              <label>Gender</label> <br />
+              <span style={{marginRight: '32px'}}>
+                <input  className="w3-radio" type="radio" name="gender" value="male" 
+                        checked = {this.state.gender === 'male'}
+                        onChange = { () => this.setState({gender: 'male'}) }
+                />
+                <label>Male</label>
+              </span>
+              <span>
+                <input  className="w3-radio" type="radio" name="gender" value="female" 
+                        checked = {this.state.gender === 'female'}
+                        onChange = { () => this.setState({gender: 'female'}) }
+                />
+                <label>FeMale</label>
+              </span>
+              
+            </p>
+            
+          </div>
+
+          <div style = {{marginBottom: '72px'}}>
+            <button className = {`w3-button w3-right w3-blue ${this.state.firstName.length === 0? 'w3-disabled' : ''}`}
+                    onClick = {this.onConfirm} 
+                    disabled = {this.state.firstName.length === 0} > 
+                    Continue <i className ="fa fa-chevron-right" /> 
+            </button>
+          </div>
+        
+
+        </div>
+
+      </div>
+    )
+  }
+
+  getTyped(target) {
+    return (evt) => {
+      const state = {}
+      state[target] = evt.target.value
+      this.setState(state)
+    }
+  }
+
+  handleKeyUp(target) {
+    return (evt) => {
+      // console.log(evt.which + '/' + evt.keyCode)
+    }
+  }
+
+  onConfirm() {
+    const profile = {
+      lastName: this._formatName(this.state.lastName) || 'N/A',
+      middleName: this._formatName(this.state.middleName) || 'N/A',
+      firstName: this._formatName(this.state.firstName) || 'N/A',
+      displayName: this._formatName(this.state.firstName) || 'N/A',
+      gender: this.state.gender || 'N/A'
+    }
+    this.props.onConfirm && this.props.onConfirm({profile});
+  }
+
+  _formatName(name) {
+    return this._toTitleCase(name.replace(/\s+/g, " ").trim());
+  }
+
+  _toTitleCase(phrase) {
+    return phrase
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+  }
+
+}
+
 export default class SignUp extends Component {
   constructor(props) {
     super(props)
@@ -328,12 +467,13 @@ export default class SignUp extends Component {
       data: {},
       flow: 'email'
     }
-    this.flow = ['email', 'password', 'fullname', 'contact', 'confirm', 'welcome']
+    this.flow = ['email', 'password', 'profile', 'confirm', 'welcome']
     this.getData = this.getData.bind(this)
     this.back = this.back.bind(this)
   }
 
   render(props) {
+    console.log(this.state.data)
     const urlBasePath = this.props.urlBasePath || ''
     return (
       <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
@@ -345,6 +485,12 @@ export default class SignUp extends Component {
                 onError = {this.onError}   
         />
         <Password display = {this.display('password')}
+                  data = {this.state.data}
+                  close = {this.props.close}   
+                  back = {this.back}
+                  onConfirm = {this.getData}
+        />
+        <Profile display = {this.display('profile')}
                   data = {this.state.data}
                   close = {this.props.close}   
                   back = {this.back}
