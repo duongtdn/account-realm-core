@@ -2,7 +2,7 @@
 
 function done() {
   return function(req, res) {
-    res.status(200).send("email not found")
+    res.status(404).send("email not found")
   }
 }
 
