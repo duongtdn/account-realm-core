@@ -2,8 +2,7 @@
 
 import React, { Component } from 'react'
 
-import { isEmail, scorePassword } from 'authenform-utils'
-import xhttp from '../../../libs/xhttp'
+import { xhttp, isEmail, scorePassword } from 'authenform-utils'
 
 class Email extends Component {
 
