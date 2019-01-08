@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
-import Signup from '../clients/templates/components/sign-up-form'
+import Signup from '../src/clients/templates/components/sign-up-form'
 
 console.log('Client script')
 
