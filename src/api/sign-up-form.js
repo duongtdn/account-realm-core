@@ -10,7 +10,7 @@ function render(helpers) {
   return function(req, res) {
     const reactDom = renderToString(React.createElement(Signup.default))
     res.writeHead( 200, { "Content-Type": "text/html" } );
-    res.end(html({title: 'Signup', dom: reactDom}))
+    res.end(html({title: 'Signup', dom: reactDom, script: `${process.env.CDN}/signup.js`}))
   }
 }
 
