@@ -387,7 +387,7 @@ export default class SignUp extends Component {
   }
 
   getData(data) {
-    console.log(data)
+    this.setState({data: {...this.state.data, ...data}})
     this.next()
   }
 
