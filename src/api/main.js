@@ -28,6 +28,11 @@ api.add('/users',
     post: require('./new-user')
   }
 )
+api.add('/users/:username', 
+  {
+    get: require('./get-user')
+  }
+)
 api.add('/users/new',
   {
     get: require('./sign-up-form')
