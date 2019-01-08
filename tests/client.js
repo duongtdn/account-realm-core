@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
-import Signup from '../src/clients/templates/components/sign-up-form'
+import SignUp from '../src/clients/templates/components/SignUp'
 
 console.log('Client script')
 
@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div> 
-        <Signup urlBasePath = '/api' />
+        <SignUp urlBasePath = '/api' />
       </div>
     )
   }

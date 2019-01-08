@@ -3,6 +3,6 @@
 import React from 'react'
 import { hydrate } from "react-dom"
 
-import Signup from '../templates/components/sign-up-form'
+import SignUp from '../templates/components/SignUp'
 
-hydrate(<Signup data = {window.DATA} />, document.getElementById("root"))
+hydrate(<SignUp data = {window.DATA} />, document.getElementById("root"))
