@@ -213,11 +213,11 @@ class Password extends Component {
           <hr />
 
           <div className ="w3-text-blue" >
-            Please enter your password.
+            Create your secret password.
           </div>
           <div className ="w3-text-grey" >
             Your password should contain lower case, upper case, 
-            number and special characters.
+            at least one number and special characters.
           </div>
 
           <hr />
@@ -318,7 +318,7 @@ class Password extends Component {
   _renderConfirmButton() {
     return (
       <div style = {{marginBottom: '72px'}}>
-        <button className = {`w3-button w3-right w3-blue ${this.props.syncing? 'w3-disabled' : ''}`}
+        <button className = {`w3-button w3-right w3-blue`}
                 onClick = {this.onConfirm} > 
           Continue <i className ="fa fa-chevron-right" /> 
         </button>
@@ -332,9 +332,11 @@ export default class SignUp extends Component {
     super(props)
     this.state = {
       data: {},
-      flow: 'password'
+      flow: 'email'
     }
     this.flow = ['email', 'password', 'fullname', 'contact', 'confirm', 'welcome']
+    this.getData = this.getData.bind(this)
+    this.back = this.back.bind(this)
   }
 
   render(props) {
@@ -349,6 +351,7 @@ export default class SignUp extends Component {
         />
         <Password display = {this.display('password')}
                   close = {this.props.close}   
+                  back = {this.back}
                   onConfirm = {this.getData}
         />
       </div>
@@ -359,8 +362,33 @@ export default class SignUp extends Component {
     return this.state.flow === flow;
   }
 
+  next() {
+    const currentFlowIndex = this.flow.indexOf(this.state.flow)
+    if (currentFlowIndex === -1) {
+      return
+    }
+    if (currentFlowIndex === this.flow.length -1) {
+      return
+    }
+    const nextFlow = this.flow[currentFlowIndex + 1]
+    this.setState({ flow: nextFlow })
+  }
+
+  back() {
+    const currentFlowIndex = this.flow.indexOf(this.state.flow)
+    if (currentFlowIndex === -1) {
+      return
+    }
+    if (currentFlowIndex === 0) {
+      return
+    }
+    const previousFlow = this.flow[currentFlowIndex - 1]
+    this.setState({ flow: previousFlow })
+  }
+
   getData(data) {
     console.log(data)
+    this.next()
   }
 
   onError(status) {
