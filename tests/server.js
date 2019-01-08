@@ -1,7 +1,7 @@
 "use strict"
 
 const express = require('express')
-const api = require('../api/main')
+const api = require('../src/api/main')
 
 const app = express()
 app.use('/', api.generate())
