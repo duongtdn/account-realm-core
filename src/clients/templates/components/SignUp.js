@@ -208,10 +208,8 @@ class Password extends Component {
 
         <div className = "" >
 
-          <BackButton onClick = {this.props.back} />
-
           <div className ="w3-text-blue" >
-            <h3> {this.props.email} </h3>
+            <h3> {this.props.data.email} </h3>
           </div>
 
           <hr />
@@ -348,12 +346,14 @@ export default class SignUp extends Component {
     return (
       <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
         <Email  display = {this.display('email')}
+                data = {this.state.data}
                 close = {this.props.close}
                 onConfirm = {this.getData}
                 urlBasePath = {urlBasePath}
                 onError = {this.onError}   
         />
         <Password display = {this.display('password')}
+                  data = {this.state.data}
                   close = {this.props.close}   
                   back = {this.back}
                   onConfirm = {this.getData}
