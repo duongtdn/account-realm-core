@@ -7,30 +7,30 @@ const api = Builder()
 /* resource: session */
 api.add('/session',
   {
-    get: require('./session/sso'),
-    post: require('./session/new-session')
+    get: require('./sso'),
+    post: require('./new-session')
   }
 )
 api.add('/session/new',
   {
-    get: require('./session/sign-in-form')
+    get: require('./sign-in-form')
   }
 )
 api.add('/session/clean',
   {
-    get: require('./session/clean-session')
+    get: require('./clean-session')
   }
 )
 
 /* resource: users */
 api.add('/users',
   {
-    post: require('./users/new-user')
+    post: require('./new-user')
   }
 )
 api.add('/users/new',
   {
-    get: require('./users/sign-up-form')
+    get: require('./sign-up-form')
   }
 )
 
