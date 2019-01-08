@@ -325,13 +325,14 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      lastName: '',
-      middleName: '',
-      firstName: '',
+      fullName: '',
       gender: '',
+      phone: [''],
+      address: '',
     }
 
-    this.onConfirm = this.onConfirm.bind(this);
+    this.onConfirm = this.onConfirm.bind(this)
+    this.addPhoneBox = this.addPhoneBox.bind(this)
 
   }
   
@@ -359,30 +360,12 @@ class Profile extends Component {
 
           <div style = {{marginBottom: '24px'}}>
             <p>
-              <label>Last Name</label>
-              <input    className="w3-input w3-border"
-                        type="text"
-                        value={this.state.lastName}
-                        onChange = {this.getTyped('lastName')}
-                        onKeyUp = {this.handleKeyUp('lastName')}
-              />
-            </p>
-            <p>
-              <label>Middle Name</label>
-              <input    className="w3-input w3-border"
-                        type="text"
-                        value={this.state.middleName}
-                        onChange = {this.getTyped('middleName')}
-                        onKeyUp = {this.handleKeyUp('middleName')}
-              />
-            </p>
-            <p>
-              <label>First Name</label>
-              <input    className="w3-input w3-border"
-                        type="text"
-                        value={this.state.firstName}
-                        onChange = {this.getTyped('firstName')}
-                        onKeyUp = {this.handleKeyUp('firstName')}
+              <label>Full Name</label>
+              <input  className="w3-input w3-border"
+                      type="text"
+                      value={this.state.fullName}
+                      onChange = {this.getTyped('fullName')}
+                      onKeyUp = {this.handleKeyUp('fullName')}
               />
             </p>
             <p>
@@ -401,15 +384,45 @@ class Profile extends Component {
                 />
                 <label>FeMale</label>
               </span>
-              
             </p>
-            
+            <p>
+              <label>Phone Number</label>
+              {
+                this.state.phone.map((phone, index) => {
+                  return (
+                    <span  key = {index} style={{display: 'block', marginBottom: '4px'}}>
+                      <input  className = "w3-input w3-border"
+                              type = "text"
+                              value = {phone}
+                              onChange = {this.getTyped('phone', index)}
+                              onKeyUp = {this.handleKeyUp('phone', index)}
+                      />
+                      <label  className = "w3-text-blue" 
+                              style = {{cursor: 'pointer', display: (index === this.state.phone.length - 1) ? 'inline' : 'none'}} 
+                              onClick = {this.addPhoneBox} > 
+                        + Add more phone number 
+                      </label>
+                    </span>
+                  )
+
+                })
+              }
+            </p>
+            <p>
+              <label>Address</label>
+              <input    className="w3-input w3-border"
+                        type="text"
+                        value={this.state.address}
+                        onChange = {this.getTyped('address')}
+                        onKeyUp = {this.handleKeyUp('address')}
+              />
+            </p>
           </div>
 
           <div style = {{marginBottom: '72px'}}>
-            <button className = {`w3-button w3-right w3-blue ${this.state.firstName.length === 0? 'w3-disabled' : ''}`}
+            <button className = {`w3-button w3-right w3-blue ${this.state.fullName.length === 0? 'w3-disabled' : ''}`}
                     onClick = {this.onConfirm} 
-                    disabled = {this.state.firstName.length === 0} > 
+                    disabled = {this.state.fullName.length === 0} > 
                     Continue <i className ="fa fa-chevron-right" /> 
             </button>
           </div>
@@ -421,11 +434,20 @@ class Profile extends Component {
     )
   }
 
-  getTyped(target) {
-    return (evt) => {
-      const state = {}
-      state[target] = evt.target.value
-      this.setState(state)
+  getTyped(target, index) {
+    if (index !== undefined) {
+      return (evt) => {
+        const state = {}
+        state[target] = [...this.state[target]];
+        state[target][index] = evt.target.value;
+        this.setState(state)
+      }
+    } else {
+      return (evt) => {
+        const state = {}
+        state[target] = evt.target.value;
+        this.setState(state)
+      }
     }
   }
 
@@ -435,13 +457,20 @@ class Profile extends Component {
     }
   }
 
+  addPhoneBox() {
+    const phone = [...this.state.phone];
+    phone.push('');
+    this.setState({ phone })
+  }
+
   onConfirm() {
     const profile = {
-      lastName: this._formatName(this.state.lastName) || 'N/A',
-      middleName: this._formatName(this.state.middleName) || 'N/A',
-      firstName: this._formatName(this.state.firstName) || 'N/A',
-      displayName: this._formatName(this.state.firstName) || 'N/A',
-      gender: this.state.gender || 'N/A'
+      email: [this.props.data.email],
+      fullName: this._formatName(this.state.fullName) || 'N/A',
+      displayName: this._formatName(this.state.fullName) || 'N/A',
+      gender: this.state.gender || 'N/A',
+      phone: this.state.phone.filter(phone => phone.length > 0),
+      address: this.state.address || 'N/A'
     }
     this.props.onConfirm && this.props.onConfirm({profile});
   }
