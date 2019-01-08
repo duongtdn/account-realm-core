@@ -5,31 +5,33 @@ const Builder = require('express-api-builder')
 const api = Builder()
 
 /* resource: session */
-api.add('/session',
+api
+.add('/session',
   {
     get: require('./sso'),
     post: require('./new-session')
   }
 )
-api.add('/session/new',
+.add('/session/new',
   {
     get: require('./sign-in-form')
   }
 )
-api.add('/session/clean',
+.add('/session/clean',
   {
     get: require('./clean-session')
   }
 )
 
 /* resource: users */
-api.add('/users',
+api
+.add('/users',
   {
     post: require('./new-user'),
     get: require('./get-user')
   }
 )
-api.add('/users/new',
+.add('/users/new',
   {
     get: require('./sign-up-form')
   }
