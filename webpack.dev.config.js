@@ -21,6 +21,12 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3100',
+          pathRewrite: {'^/api' : ''}
+        }
+      },
       publicPath: "/assets/",
       historyApiFallback: true
     }
