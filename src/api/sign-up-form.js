@@ -3,7 +3,7 @@
 const React = require('react')
 const { renderToString } = require('react-dom/server')
 
-const html = require('../../clients/templates/html')
+const html = require('../clients/templates/html')
 const Signup = require('../../build/components/sign-up-form')
 
 function render(helpers) {
