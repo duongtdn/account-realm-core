@@ -198,9 +198,13 @@ class Password extends Component {
   render() {
     const display = this.props.display ? 'block' : 'none';
     return (
-      <div className = "w3-container" style = {{ display }} >
+      <div className = "" style = {{ display }} >
 
-        <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+        <header >
+          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <BackButton onClick = {this.props.back} />
+        </header>
+        
 
         <div className = "" >
 
