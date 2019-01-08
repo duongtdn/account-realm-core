@@ -4,7 +4,7 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    signup: ['./clients/scripts/sign-up.js'],
+    signup: ['./src/clients/scripts/sign-up.js'],
   },
   output: {
     path: path.resolve(__dirname, "build/clients"),
