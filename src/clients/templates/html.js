@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = ({title, script, dom}) => `
+module.exports = ({title, data, script, dom}) => `
 <!DOCTYPE html>
 <html class="w3-light-grey">
   <head>
@@ -13,15 +13,9 @@ module.exports = ({title, script, dom}) => `
   </head>
 
   <body>    
-    <div class="w3-bar w3-blue">
-      <button id="sso" class="w3-bar-item w3-button"> SSO </button>
-      <button id="lso" class="w3-bar-item w3-button"> LSO </button>
-      <button id="signup" class="w3-bar-item w3-button"> Sign up</button>
-      <button id="signin" class="w3-bar-item w3-button"> Sign in</button>
-      <button id="signout" class="w3-bar-item w3-button"> Sign out</button>
-    </div>
     <div id="root">${dom}</div>
-    <script type="text/javascript" src="${script}" ></script>
+    <script> var __data=${JSON.stringify(data)} </script>
+    <script type="text/javascript" src="${script}" ></script>    
   </body>
 
 </html>
