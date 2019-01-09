@@ -489,6 +489,111 @@ class Profile extends Component {
 
 }
 
+class Submit extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      checked : false,
+      syncing: false,
+      error: ''
+    }
+
+    this.onConfirm = this.onConfirm.bind(this);
+    this.toggleChecked = this.toggleChecked.bind(this);
+    this._renderAgreementBox = this._renderAgreementBox.bind(this);
+    this._renderRegisterButton = this._renderRegisterButton.bind(this);
+
+  }
+
+  componentWillReceiveProps(props) {
+    if (!this.props.display) {
+      this.setState({ checked : false });
+    }
+  }
+  
+  render() {
+    const display = this.props.display ? 'block' : 'none';
+    return (
+      <div className = "" style = {{ display }} >
+
+        <header >
+          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <BackButton onClick = {this.props.back} />
+        </header>
+
+        <div className = "" >
+
+          {this._renderAgreementBox()}
+
+          <hr />
+
+          {this._renderRegisterButton()}
+
+        </div>
+
+      </div>
+    )
+  }
+
+  onConfirm() {
+    const user = this.props.data
+    this.setState({ syncing : true })
+    xhttp.post(`${this.props.urlBasePath}/users`, { user }, (status, response) => {
+      const syncing = false
+      if (status === 200) {
+        this.setState({ error: '', syncing })
+        this.props.onConfirm && this.props.onConfirm()
+        return
+      } 
+      if (status !== 200) {
+        const error = `An error occur during submitting. Error: ${status}`
+        this.setState({ error, syncing })
+        return
+      }
+    })
+  }
+
+ _renderAgreementBox() {
+  return (
+    <div className = "w3-text-grey">
+      <div style = {{marginBottom: '8px'}} >
+        Please read the <a className = "w3-text-blue" href = {this.props.TermsAndServicesLink} > Terms and Services </a> Agreement. 
+        Check the box if you accept them.
+      </div>
+      <div style = {{marginBottom: '16px'}} >
+          <input className = "w3-check" 
+                 type="checkbox" 
+                 checked = {this.state.checked}
+                 onChange = {this.toggleChecked} />
+          <label> Agree <a>Terms & Services</a> </label>
+      </div>
+    </div>
+  )
+ }
+
+ toggleChecked() {
+   this.setState({ checked: !this.state.checked });
+ }
+
+  _renderRegisterButton() {
+    const disabled = this.props.syncing || !this.state.checked ? 'disabled' : '';
+    return (
+      <div>        
+        <div style = {{marginBottom: '24px'}}>
+          <button className = {`w3-button w3-block w3-blue w3-${disabled}`}
+                  onClick = {this.onConfirm} disabled = {disabled.length > 0 ? true : false} > 
+            {
+              this.state.syncing? 'Submitting...' : 'Submit' 
+            }
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+}
+
 export default class SignUp extends Component {
   constructor(props) {
     super(props)
@@ -496,13 +601,12 @@ export default class SignUp extends Component {
       data: {},
       flow: 'email'
     }
-    this.flow = ['email', 'password', 'profile', 'confirm', 'welcome']
+    this.flow = ['email', 'password', 'profile', 'submit', 'welcome']
     this.getData = this.getData.bind(this)
     this.back = this.back.bind(this)
   }
 
   render(props) {
-    console.log(this.state.data)
     const urlBasePath = this.props.urlBasePath || ''
     return (
       <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
@@ -524,6 +628,14 @@ export default class SignUp extends Component {
                   close = {this.props.close}   
                   back = {this.back}
                   onConfirm = {this.getData}
+        />
+        <Submit   display = {this.display('submit')}
+                  data = {this.state.data}
+                  close = {this.props.close}   
+                  back = {this.back}
+                  onConfirm = {this.getData}
+                  TermsAndServicesLink = '#'
+                  urlBasePath = {urlBasePath}
         />
       </div>
     )
