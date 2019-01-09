@@ -12,7 +12,7 @@ class Email extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: 'example@mail.com',
+      email: '',
       error: '',
       syncing: false
     }
