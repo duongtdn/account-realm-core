@@ -310,10 +310,10 @@ class Password extends Component {
 
   _renderConfirmButton() {
     return (
-      <div style = {{marginBottom: '72px'}}>
-        <button className = {`w3-button w3-right w3-blue`}
-                onClick = {this.onConfirm} > 
-          Continue <i className ="fa fa-chevron-right" /> 
+      <div style = {{marginBottom: '42px', textAlign: 'right'}}>
+        <button className = {`w3-button w3-blue`} 
+                onClick = {this.onConfirm} >
+                Continue <i className ="fa fa-chevron-right" /> 
         </button>
       </div>
     )
@@ -419,8 +419,8 @@ class Profile extends Component {
             </p>
           </div>
 
-          <div style = {{marginBottom: '72px'}}>
-            <button className = {`w3-button w3-right w3-blue ${this.state.fullName.length === 0? 'w3-disabled' : ''}`}
+          <div style = {{marginBottom: '42px', textAlign: 'right'}}>
+            <button className = {`w3-button w3-blue ${this.state.fullName.length === 0? 'w3-disabled' : ''}`}
                     onClick = {this.onConfirm} 
                     disabled = {this.state.fullName.length === 0} > 
                     Continue <i className ="fa fa-chevron-right" /> 
@@ -663,7 +663,7 @@ export default class SignUp extends Component {
   render(props) {
     const urlBasePath = this.props.urlBasePath || ''
     return (
-      <div className="w3-container" style={{ padding: "24px 12px", maxWidth: "460px" }}>
+      <div className="w3-container" style={{ padding: "10px 12px", maxWidth: "460px" }}>
         <Email  display = {this.display('email')}
                 data = {this.state.data}
                 close = {this.props.close}
