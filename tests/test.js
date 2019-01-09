@@ -35,6 +35,9 @@ const done = {
       case 200:
         console.log(`sign-in user: ${user}`)
         break
+      case 403:
+        console.log('forbidden')
+        break
       case 404:
         console.log('no sign-in user')
         break
