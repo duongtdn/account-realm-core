@@ -464,10 +464,14 @@ class Profile extends Component {
   }
 
   onConfirm() {
+    /* extract display name from fullname */
+    const lastWord = /(\w+)\W*$/.exec(this._formatName(this.state.fullName))
+    const displayName = lastWord && lastWord.length > 0 ? lastWord[0].trim() : 'N/A' 
+    /* construct profile */
     const profile = {
       email: [this.props.data.email],
       fullName: this._formatName(this.state.fullName) || 'N/A',
-      displayName:  /\s(\w+)\W*$/.exec(this._formatName(this.state.fullName))[0] || 'N/A',
+      displayName,
       gender: this.state.gender || 'N/A',
       phone: this.state.phone.filter(phone => phone.length > 0),
       address: this.state.address || 'N/A'
