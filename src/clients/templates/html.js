@@ -15,7 +15,7 @@ module.exports = ({title, data, script, dom}) => `
   <body>    
     <div id="root">${dom}</div>
     <script> var __data=${JSON.stringify(data)} </script>
-    <script type="text/javascript" src="${script}" ></script>    
+    ${script? `<script type="text/javascript" src="${script}" ></script>` : ''}    
   </body>
 
 </html>
