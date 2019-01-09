@@ -467,7 +467,7 @@ class Profile extends Component {
     const profile = {
       email: [this.props.data.email],
       fullName: this._formatName(this.state.fullName) || 'N/A',
-      displayName: this._formatName(this.state.fullName) || 'N/A',
+      displayName:  /\s(\w+)\W*$/.exec(this._formatName(this.state.fullName))[0] || 'N/A',
       gender: this.state.gender || 'N/A',
       phone: this.state.phone.filter(phone => phone.length > 0),
       address: this.state.address || 'N/A'
