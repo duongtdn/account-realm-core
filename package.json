@@ -4,12 +4,12 @@
   "description": "core apis of account-realm provider",
   "main": "src/main.js",
   "scripts": {
-    "test": "node tests/server",
     "build:components": "babel src/clients/templates/components --out-dir build/components --source-maps",
     "build:clients": "webpack --config webpack.build.config.js",
     "build": "rm -rf build && npm run build:components && npm run build:clients",
     "start": "npm run build && node tests/server",
-    "dev": "webpack-dev-server --config webpack.dev.config.js  --port 3200 --host 0.0.0.0 --watch-poll"
+    "dev": "webpack-dev-server --config webpack.dev.config.js  --port 3200 --host 0.0.0.0 --watch-poll",
+    "test": "webpack-dev-server --config webpack.test.config.js  --port 3200 --host 0.0.0.0 --watch-poll"
   },
   "repository": {
     "type": "git",
