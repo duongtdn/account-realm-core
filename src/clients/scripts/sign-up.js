@@ -1,7 +1,7 @@
 "use strict"
 
 import React from 'react'
-import { hydrate } from "react-dom"
+import { hydrate, render } from "react-dom"
 
 import { postMessage } from "./message"
 import SignUp from '../templates/components/SignUp'
@@ -11,9 +11,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
   postMessage('iframe.loaded')
 });
 
+window.addEventListener("message", (event) => {
+  if (event.origin !== __data.targetOrigin) {
+    return
+  }
+  if (event.data === 'iframe.ack') {
+    render(<SignUp close = {xclose} />, document.getElementById("root"))
+  }
+})
+
 
 function xclose() {
   postMessage('iframe.close')
 }
-
-hydrate(<SignUp data = {window.DATA} close = {xclose} />, document.getElementById("root"))

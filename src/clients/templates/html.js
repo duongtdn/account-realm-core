@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = ({title, data, script, dom}) => `
+module.exports = ({title, data, script}) => `
 <!DOCTYPE html>
 <html class="w3-light-grey">
   <head>
@@ -13,7 +13,7 @@ module.exports = ({title, data, script, dom}) => `
   </head>
 
   <body>    
-    <div id="root">${dom}</div>
+    <div id="root"></div>
     <script> var __data=${JSON.stringify(data)} </script>
     ${script? `<script type="text/javascript" src="${script}" ></script>` : ''}    
   </body>
