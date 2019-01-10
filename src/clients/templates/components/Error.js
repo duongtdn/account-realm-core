@@ -13,7 +13,8 @@ export default class Error extends Component {
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
         </header>
         <div>
-          <h4 className="w3-text-red"> Error {this.props.code} - {this.props.detail} </h4>
+          <h4 className="w3-text-red"> {this.props.code} </h4>
+          <p> {this.props.detail} </p>
         </div>
       </div>
     )
