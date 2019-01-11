@@ -86,12 +86,6 @@ function generateAuthenToken(helpers) {
   }
 }
 
-function serializeUser() {
-  return function(req, res, next) {
-    next()
-  }
-}
-
 function sendEmail(helpers) {
   return function(req, res, next) {
     if (helpers.sendEmail) {
@@ -128,8 +122,14 @@ function setHttpCookie() {
 
 function responseSuccess() {
   return function(req, res) {
-    res.status(200).json({ user: req.user, token: req.authenToken })
+    res.status(200).json({ user: serializeUser(req.user), token: req.authenToken })
   }
 }
 
-module.exports = [validateParameters, checkUserExistance, createUser, generateAuthenToken, sendEmail, setHttpCookie, serializeUser, responseSuccess]
+function serializeUser(user) {
+  delete user.uid
+  delete user.credentials
+  return user
+}
+
+module.exports = [validateParameters, checkUserExistance, createUser, generateAuthenToken, sendEmail, setHttpCookie, responseSuccess]
