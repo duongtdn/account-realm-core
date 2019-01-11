@@ -6,6 +6,10 @@ const path = require('path')
 const express = require('express')
 const api = require('../src/api/main')
 
+const Realms = [
+  {realmId: 'realm', secret: 'realm-secret'}
+]
+
 const Apps = [
   {appId: 'dev', url: 'http://localhost:3200'}
 ]
@@ -16,6 +20,14 @@ const Users = [
 
 api.helpers({
   Collections: {
+    Realms: {
+      find({realmId}, done) {
+        setTimeout(() => {
+          done && done(Realms.filter(_realm=> _realm.realmId === realmId))
+        }, 500)
+        return this
+      }
+    },
     Apps: {
       find({realm, app}, done) {
         setTimeout(() => {
