@@ -543,7 +543,7 @@ class Submit extends Component {
   onConfirm() {
     const user = this.props.data
     this.setState({ syncing : true })
-    xhttp.post(`${this.props.urlBasePath}/users`, { user }, (status, response) => {
+    xhttp.post(`${this.props.urlBasePath}/users`, { user, realm: window.__data.realm }, (status, response) => {
       const syncing = false
       if (status === 200) {
         this.setState({ error: '', syncing })
