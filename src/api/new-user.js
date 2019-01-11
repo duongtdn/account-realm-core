@@ -111,4 +111,4 @@ function responseSuccess() {
   }
 }
 
-module.exports = [checkUserExistance, createUser, generateAuthenToken, serializeUser, sendEmail, setHttpCookie, responseSuccess]
+module.exports = [checkUserExistance, createUser, generateAuthenToken, sendEmail, setHttpCookie, serializeUser, responseSuccess]
