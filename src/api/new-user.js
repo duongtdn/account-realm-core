@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 
 function validateParameters() {
   return function(req, res, next) {
-    const user = req.body.user
     const realm = req.body.realm
     if (!realm) {
       res.status(400).send('realm is missing')
@@ -70,14 +69,20 @@ function createUser(helpers) {
   }
 }
 
-function generateAuthenToken() {
+function generateAuthenToken(helpers) {
   return function(req, res, next) {
     const user = req.user
-    const token = jwt.sign(
-      {uid: user.uid}, 
-      process.env.AUTHEN_TOKEN || 'AUTHEN_TOKEN'
-    ); 
-    next()
+    const realm = req.body.realm
+    helpers.Collections.Realms.find({ realmId: realm }, (realms) => {
+      if (realms && realms[0]) {
+        const secret = realms[0].secret
+        req.authenToken = jwt.sign({ uid: user.uid }, secret)  
+        next()
+      } else {
+        console.error('Database Error: Cannot get realm from Realms collection')
+        res.status(500).json({error: 'Database error'})
+      }
+    })        
   }
 }
 
@@ -123,8 +128,7 @@ function setHttpCookie() {
 
 function responseSuccess() {
   return function(req, res) {
-    console.log(req.user)
-    res.status(200).json({user: req.user})
+    res.status(200).json({ user: req.user, token: req.authenToken })
   }
 }
 
