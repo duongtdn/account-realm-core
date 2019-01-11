@@ -12,7 +12,7 @@ class Email extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      email: 'awesome@team.com',
       error: '',
       syncing: false
     }
@@ -171,9 +171,9 @@ class Password extends Component {
     this.state = {
       messageBox1 : '',
       messageBox2 : '',
-      password: '',
+      password: '123',
       score: 0,
-      retypePassword: ''
+      retypePassword: '123'
     }
 
     this.onConfirm = this.onConfirm.bind(this);
@@ -325,7 +325,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      fullName: '',
+      fullName: 'Awesome Tester',
       gender: '',
       phone: [''],
       address: '',
