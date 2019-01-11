@@ -87,7 +87,7 @@ class Email extends Component {
     this.setState({ syncing: true})
     xhttp.get(`${this.props.urlBasePath}/users?u=${email}`, (status, response) => {
       const syncing = false
-      if (status === 404 && response === 'email not found') {
+      if (status === 404 ) {
         this.setState({ email, error, syncing})
         this.props.onConfirm && this.props.onConfirm({email})
         return
