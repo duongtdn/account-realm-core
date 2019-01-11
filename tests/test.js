@@ -33,7 +33,7 @@ const done = {
   signup(status, user) {
     switch (status) {
       case 200:
-        console.log(`sign-in user: ${user}`)
+        console.log(`sign-in user: ${user.profile.displayName}<${user.profile.email[0]}>`)
         break
       case 403:
         console.log('forbidden')
@@ -52,7 +52,7 @@ const done = {
   signin(status, user) {
     switch (status) {
       case 200:
-        console.log(`sign-in user: ${user}`)
+        console.log(`sign-in user: ${user.profile.displayName}<${user.profile.email[0]}>`)
         break
       case 403:
         console.log('no sign-in user')
