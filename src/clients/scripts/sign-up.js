@@ -10,10 +10,14 @@ import Error from '../templates/components/Error'
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log('# Form: document loaded')
   postMessage('iframe.loaded')
-    .then( _ => render(<SignUp close = {xclose} />, document.getElementById("root")))
+    .then( _ => render(<SignUp close = {xclose} onSuccess={onSignupSuccess} />, document.getElementById("root")))
     .catch( err => render(<Error code = {err.code} detail = {err.detail} />, document.getElementById("root")))
 });
 
 function xclose() {
   postMessage('iframe.close')
+}
+
+function onSignupSuccess(session) {
+  postMessage('iframe.done', { status: 200, session })
 }
