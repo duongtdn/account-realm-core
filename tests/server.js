@@ -32,8 +32,11 @@ api.helpers({
         return this
       },
       insert({user}, done) {
-        Users.push(user)
-        done && done(user)
+        setTimeout(() => {
+          Users.push(user)
+          done && done(user)
+        }, 500)
+        return this
       }
     }
   }
