@@ -1,6 +1,6 @@
 "use strict"
 
-export function postMessage(code) {
+export function postMessage(code, data) {
   return new Promise( (resolve, reject) => {
     if (!window.parent) {
       reject()
@@ -22,11 +22,10 @@ export function postMessage(code) {
       const target = window.parent  
       const msg = { code: code }
       if (code === 'iframe.done') {
-        msg.status = status
-        const obj = JSON.parse(message)
-        for (let k in obj) {
-          msg[k] = obj[k]
+        for (let prop in data) {
+          msg[prop] = data[prop]
         }
+        const status = data.status
         if (status == 200 || status == 404) {
           target.postMessage(msg, window.__data.targetOrigin)
         } else if (status == 403) {
