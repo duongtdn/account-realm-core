@@ -3,9 +3,26 @@
 const uuid = require('uuid/v1')
 const jwt = require('jsonwebtoken')
 
-function checkUserExistance(helpers) {
+function validateParameters() {
   return function(req, res, next) {
     const user = req.body.user
+    const realm = req.body.realm
+    if (!realm) {
+      res.status(400).send('realm is missing')
+      return
+    }
+    const user = req.body.user
+    if (!user || !user.email) {
+      res.status(400).send('bad user object')
+      return
+    }
+    next()
+  }
+}
+
+function checkUserExistance(helpers) {
+  return function(req, res, next) {
+    const user = req.body.user    
     helpers.Collections.Users.find({username: user.email}, (users) => {
       if (users && users[0]) {
         res.status(403).send('email is used for an account')
@@ -111,4 +128,4 @@ function responseSuccess() {
   }
 }
 
-module.exports = [checkUserExistance, createUser, generateAuthenToken, sendEmail, setHttpCookie, serializeUser, responseSuccess]
+module.exports = [validateParameters, checkUserExistance, createUser, generateAuthenToken, sendEmail, setHttpCookie, serializeUser, responseSuccess]
