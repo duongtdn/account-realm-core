@@ -10,6 +10,10 @@ const Apps = [
   {appId: 'dev', url: 'http://localhost:3200'}
 ]
 
+const Users = [
+
+]
+
 api.helpers({
   Collections: {
     Apps: {
@@ -18,6 +22,18 @@ api.helpers({
           done && done(Apps.filter(_app => _app.appId === app))
         }, 500)
         return this
+      }
+    },
+    Users: {
+      find({username}, done) {
+        setTimeout(() => {
+          done && done(Users.filter(_user => _user.username === username))
+        }, 500)
+        return this
+      },
+      insert({user}, done) {
+        Users.push(user)
+        done && done(user)
       }
     }
   }
