@@ -503,7 +503,7 @@ class Submit extends Component {
       error: ''
     }
 
-    this.onConfirm = this.onConfirm.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.toggleChecked = this.toggleChecked.bind(this);
     this._renderAgreementBox = this._renderAgreementBox.bind(this);
     this._renderRegisterButton = this._renderRegisterButton.bind(this);
@@ -540,14 +540,15 @@ class Submit extends Component {
     )
   }
 
-  onConfirm() {
+  onSubmit() {
     const user = this.props.data
     this.setState({ syncing : true })
     xhttp.post(`${this.props.urlBasePath}/users`, { user, realm: window.__data.realm }, (status, response) => {
       const syncing = false
       if (status === 200) {
         this.setState({ error: '', syncing })
-        this.props.onConfirm && this.props.onConfirm()
+        const session = JSON.parse(response)
+        this.props.onSuccess && this.props.onSuccess(session)
         return
       } 
       if (status !== 200) {
@@ -586,7 +587,7 @@ class Submit extends Component {
       <div>        
         <div style = {{marginBottom: '24px'}}>
           <button className = {`w3-button w3-block w3-blue w3-${disabled}`}
-                  onClick = {this.onConfirm} disabled = {disabled.length > 0 ? true : false} > 
+                  onClick = {this.onSubmit} disabled = {disabled.length > 0 ? true : false} > 
             {
               this.state.syncing? 'Submitting...' : 'Submit' 
             }
@@ -661,6 +662,7 @@ export default class SignUp extends Component {
     }
     this.flow = ['email', 'password', 'profile', 'submit', 'welcome']
     this.getData = this.getData.bind(this)
+    this.onReceivedSession = this.onReceivedSession.bind(this)
     this.back = this.back.bind(this)
   }
 
@@ -691,7 +693,7 @@ export default class SignUp extends Component {
                   data = {this.state.data}
                   close = {this.props.close}   
                   back = {this.back}
-                  onConfirm = {this.getData}
+                  onSuccess = {this.onReceivedSession}
                   TermsAndServicesLink = '#'
                   urlBasePath = {urlBasePath}
         />
@@ -734,6 +736,11 @@ export default class SignUp extends Component {
 
   getData(data) {
     this.setState({data: {...this.state.data, ...data}})
+    this.next()
+  }
+
+  onReceivedSession(session) {
+    this.props.onSuccess(session)
     this.next()
   }
 
