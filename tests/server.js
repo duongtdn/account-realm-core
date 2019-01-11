@@ -39,6 +39,15 @@ api.helpers({
   }
 })
 
+api.helpers({
+  sendEmail({recipient, template, data}) {
+    return new Promise((response, reject) => {
+      console.log('Sending email...')
+      reject()
+    })
+  }
+})
+
 const app = express()
 
 app.use('/assets', express.static(path.join(__dirname, '../build/clients')))
