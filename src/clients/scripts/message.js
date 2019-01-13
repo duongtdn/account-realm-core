@@ -6,10 +6,6 @@ export function postMessage(code, data) {
       reject()
       return
     }
-    if (__data.error) {
-      reject({..._data.error})
-      return
-    }
     if (!__data.targetOrigin) {
       reject({code: '403 Fobidden', detail: ''})
       return
