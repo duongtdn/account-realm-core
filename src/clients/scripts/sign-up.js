@@ -8,7 +8,6 @@ import SignUp from '../templates/components/SignUp'
 import Error from '../templates/components/Error'
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  console.log('# Form: document loaded')
   postMessage('iframe.loaded')
     .then( _ => render(<SignUp close = {xclose} onSuccess={onSignupSuccess} />, document.getElementById("root")))
     .catch( err => render(<Error code = {err.code} detail = {err.detail} />, document.getElementById("root")))
