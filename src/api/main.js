@@ -1,8 +1,12 @@
 "use strict"
 
+const cookieParser = require('cookie-parser')
+
 const Builder = require('express-api-builder')
 
 const api = Builder()
+
+api.use(cookieParser())
 
 /* resource: session */
 api
