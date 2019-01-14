@@ -37,9 +37,9 @@ api.helpers({
       }
     },
     Users: {
-      find({username}, done) {
+      find({username, uid}, done) {
         setTimeout(() => {
-          done && done(Users.filter(_user => _user.username === username))
+          done && done(Users.filter(_user => _user.username === username || _user.uid === uid))
         }, 500)
         return this
       },
