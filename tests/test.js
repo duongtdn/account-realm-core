@@ -4,7 +4,7 @@ const done = {
   sso(status, user) {
     switch (status) {
       case 200:
-        console.log(`sign-in user: ${user}`)
+        console.log(`sign-in user: ${user.profile.displayName}<${user.profile.email[0]}>`)
         break
       case 404:
         console.log('no sign-in user')
@@ -20,7 +20,7 @@ const done = {
   lso(status, user) {
     switch (status) {
       case 200:
-        console.log(`sign-in user: ${user}`)
+      console.log(`sign-in user: ${user.profile.displayName}<${user.profile.email[0]}>`)
         break
       case 404:
         console.log('no sign-in user')
@@ -94,7 +94,7 @@ acc
   .on('unauthenticated', () => console.log('unauthenticated'))
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  const btn = ['sso', 'lso', 'signup', 'signin', 'signout']
+  const btn = ['sso', 'lso', 'signup', 'signin', 'signout', 'signoutLocally']
   btn.forEach( fn => $(fn).onclick = function() { acc[fn](done[fn]) })
 }, false)
 
