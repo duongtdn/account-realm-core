@@ -4,7 +4,7 @@ import { postMessage } from "./message"
 
 document.addEventListener("DOMContentLoaded", function(event) {
   postMessage('iframe.loaded')
-  postMessage('iframe.done', { status: 200, session: null })
+  postMessage('iframe.done', { status: 200, session: window.__data.session })
 })
 
 
