@@ -18,7 +18,6 @@ function done(helpers) {
         console.log('clear session cookie')
         res.clearCookie('session')
         const data = { targetOrigin: apps[0].url, realm, session: null }
-        console.log(data)
         res.writeHead( 200, { "Content-Type": "text/html" } );
         res.end(html({title: 'Clean', style: false, data, script: `${process.env.CDN}/sso.js`}))
       } else {
