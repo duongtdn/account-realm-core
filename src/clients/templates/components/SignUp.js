@@ -19,13 +19,18 @@ class Email extends Component {
     this.getTypedEmail = this.getTypedEmail.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.onConfirm = this.onConfirm.bind(this)
+    this._init = true
+  }
+
+  componentDidMount() {
+    this._init = false
   }
 
   render(props) {
     const display = this.props.display ? 'block' : 'none';
     const borderColor = this.state.error.length === 0 ? '' : 'w3-border-red';
     return (
-      <div style={{ display }}>
+      <div className={this._init? 'w3-animate-top': ''} style={{ display }}>
         <header > 
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
           <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Create New Account </h3>
@@ -189,7 +194,7 @@ class Password extends Component {
   render() {
     const display = this.props.display ? 'block' : 'none';
     return (
-      <div className = "" style = {{ display }} >
+      <div style = {{ display }} >
 
         <header >
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
@@ -339,7 +344,7 @@ class Profile extends Component {
   render() {
     const display = this.props.display ? 'block' : 'none';
     return (
-      <div className = "" style = {{ display }} >
+      <div style = {{ display }} >
 
         <header >
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
@@ -519,7 +524,7 @@ class Submit extends Component {
   render() {
     const display = this.props.display ? 'block' : 'none';
     return (
-      <div className = "" style = {{ display }} >
+      <div style = {{ display }} >
 
         <header >
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
@@ -608,7 +613,7 @@ class Welcome extends Component {
   render() {
     const display = this.props.display ? 'block' : 'none';
     return (
-      <div className = "" style = {{ display }} >
+      <div className={`w3-animate-top`} style = {{ display }} >
         
         <header >
           <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
