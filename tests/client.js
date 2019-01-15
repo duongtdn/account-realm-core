@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div> 
-        <SignIn urlBasePath = '/api' />
+        <SignIn urlBasePath = '/api' close = {() => console.log('close')} />
       </div>
     )
   }
