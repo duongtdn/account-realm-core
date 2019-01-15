@@ -70,9 +70,9 @@ class Email extends Component {
   }
 
   getTypedEmail(evt) {
-    const email = evt.target.value;
-    const error = email.length === 1 ? '' : this.state.error; 
-    this.setState ({ email, error });
+    const email = evt.target.value
+    const error = ''
+    this.setState ({ email, error })
   }
 
   handleKeyUp(evt) {
@@ -83,8 +83,18 @@ class Email extends Component {
 
   onConfirm() {
 
+    if (this.state.error.length > 0) {
+      return
+    }
+
     let error = '';
     const email = this.state.email;
+
+    if (this.props.data.email === email) {
+      this.setState({ email, error, syncing: false})
+      this.props.onConfirm && this.props.onConfirm({email})
+      return
+    }
 
     if (!isEmail(email)) {
       error = 'Invalid Email Address';
