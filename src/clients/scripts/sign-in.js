@@ -7,7 +7,7 @@ import { postMessage } from "./message"
 import SignIn from '../templates/components/SignIn'
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  postMessage('iframe.loaded', {height: 415})
+  postMessage('iframe.loaded', {height: 415, width: 460})
   render(<SignIn close = {xclose} onSuccess={onSigninSuccess} />, document.getElementById("root"))
 });
 
