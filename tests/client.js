@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 
 import SignUp from '../src/clients/templates/components/SignUp'
+import SignIn from '../src/clients/templates/components/SignIn'
 
 console.log('Client script')
 
@@ -14,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div> 
-        <SignUp urlBasePath = '/api' />
+        <SignIn urlBasePath = '/api' />
       </div>
     )
   }
