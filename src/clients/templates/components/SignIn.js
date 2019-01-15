@@ -193,6 +193,16 @@ class Password extends Component {
 class Welcome extends Component {
   constructor(props) {
     super(props)
+    this._timer = null
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.display && !this.props.display) {
+      this._timer = setTimeout(() => {
+        clearTimeout(this._timer)
+        this.props.close && this.props.close()
+      }, 2000)
+    }
   }
 
 
