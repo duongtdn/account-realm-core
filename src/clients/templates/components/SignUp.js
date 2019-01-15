@@ -602,9 +602,6 @@ class Submit extends Component {
 class Welcome extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      syncing: false
-    }
   }
 
 
@@ -640,7 +637,7 @@ class Welcome extends Component {
           </p>
 
           <div style = {{marginBottom: '72px'}}>
-            <button className = {`w3-button w3-blue ${this.state.syncing? 'w3-disabled' : ''}`}
+            <button className = {`w3-button w3-blue`}
                     onClick = {this.props.close} > 
               Close 
             </button>
@@ -700,7 +697,6 @@ export default class SignUp extends Component {
         <Welcome  display = {this.display('welcome')}
                   data = {this.state.data}
                   close = {this.props.close}   
-                  onConfirm = {this.getData}
         />
       </div>
     )
