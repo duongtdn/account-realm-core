@@ -219,6 +219,10 @@ class Welcome extends Component {
             <h3> Welcome {this.props.data.profile && this.props.data.profile.displayName} </h3>
           </div>
 
+          <p>
+            You have signed in.
+          </p>
+
         </div>
 
 
