@@ -1,9 +1,35 @@
 "use strict"
 
-function done() {
+const html = require('../clients/templates/html')
+
+function render(helpers) {
   return function(req, res) {
-    res.end("sign-in-form: worked!\n")
+    if (!(req.query && req.query.realm && req.query.app)) {
+      _renderError(res, '403 Forbidden', 'Application is not registered')
+      return
+    }
+    const realm = req.query.realm
+    const app = req.query.app
+    helpers.Collections.Apps.find({realm,app}, (apps) => {
+      if (apps && apps[0]) {
+        _renderSignin(res, realm, apps[0])
+      } else {
+        _renderError(res, '403 Forbidden', 'Application is not registered')
+      }
+    })
   }
 }
 
-module.exports = done
+function _renderError(res, code, detail) {
+  const data = { error: {code, detail} }
+  res.writeHead( 403, { "Content-Type": "text/html" } );
+  res.end(html({title: 'Error', data, script: `${process.env.CDN}/error.js`}))
+}
+
+function _renderSignin(res, realm, app) {
+  const data = { targetOrigin: app.url, realm }
+  res.writeHead( 200, { "Content-Type": "text/html" } );
+  res.end(html({title: 'Signin', data, script: `${process.env.CDN}/signin.js`}))
+}
+
+module.exports = render
