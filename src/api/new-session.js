@@ -1,9 +1,52 @@
 "use strict"
 
-function done() {
-  return function(req, res) {
-    res.end("new-session: worked!\n")
+const { checkPassword, generateAuthenToken, setHttpCookie, serializeUser } = require('./libs/util')
+
+function validateParameters() {
+  return function(req, res, next) {
+    const realm = req.body.realm
+    if (!realm) {
+      res.status(400).send('realm is missing')
+      return
+    }
+    req.realm = realm
+    const user = req.body.user
+    if (!user || !user.email) {
+      res.status(400).send('bad user object')
+      return
+    }
+    next()
   }
 }
 
-module.exports = done
+function findUser(helpers) {
+  return function(req, res, next) {
+    const user = req.body.user    
+    helpers.Collections.Users.find({username: user.email}, (users) => {
+      if (users && users[0]) {
+        req.user = users[0]
+        next()
+      } else {
+        res.status(404).send('no user')
+      }
+    })    
+  }
+}
+
+function verifyPassword() {
+  return function(req, res, next) {
+    if (checkPassword(req.user, req.body.password)) {
+      next()
+    } else {
+      res.status(401).send('wrong password')
+    }
+  }
+}
+
+function final() {
+  return function(req, res) {
+    res.status(200).json({ user: serializeUser(req.user), token: req.authenToken })
+  }
+}
+
+module.exports = [validateParameters, findUser, verifyPassword, generateAuthenToken, setHttpCookie, final]
