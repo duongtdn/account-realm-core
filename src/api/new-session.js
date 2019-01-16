@@ -10,19 +10,17 @@ function validateParameters() {
       return
     }
     req.realm = realm
-    const user = req.body.user
-    if (!user || !user.email) {
+    if (req.body.username && req.body.password) {
+      next()
+    } else {
       res.status(400).send('bad user object')
-      return
     }
-    next()
   }
 }
 
 function findUser(helpers) {
-  return function(req, res, next) {
-    const user = req.body.user    
-    helpers.Collections.Users.find({username: user.email}, (users) => {
+  return function(req, res, next) {   
+    helpers.Collections.Users.find({username: req.body.username}, (users) => {
       if (users && users[0]) {
         req.user = users[0]
         next()
