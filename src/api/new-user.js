@@ -77,7 +77,6 @@ function sendEmail(helpers) {
     if (helpers.sendEmail) {
       /* generate token to active email */
       const user = req.user
-      console.log(user)
       const token = jwt.sign(
         {uid: user.uid}, 
         process.env.DELIGATE_KEY_VERIFY_EMAIL || 'DELIGATE_KEY_VERIFY_EMAIL'
