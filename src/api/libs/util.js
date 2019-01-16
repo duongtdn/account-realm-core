@@ -2,6 +2,8 @@
 
 const jwt = require('jsonwebtoken')
 
+const crypto = require('crypto')
+
 function generateAuthenToken(helpers) {
   return function(req, res, next) {
     const user = req.user
@@ -42,7 +44,15 @@ function serializeUser(user) {
 }
 
 function checkPassword(user, password) {
-  return user.credentials.password === password
+  return user.credentials.password === hashPassword(password)
 }
 
-module.exports = { generateAuthenToken, setHttpCookie, serializeUser, checkPassword }
+function hashPassword(password) {
+  const hash = crypto.createHash('sha256')
+  const head = process.env.PWD_PREFIX
+  const tail = process.env.PWD_SUFFIX
+  hash.update(`${head}${password}${tail}`)
+  return hash.digest('hex')
+}
+
+module.exports = { generateAuthenToken, setHttpCookie, serializeUser, checkPassword, hashPassword }
