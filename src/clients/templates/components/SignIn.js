@@ -58,7 +58,7 @@ class Email extends Component {
               <button type="submit" className={`w3-button w3-blue `} onClick={this.onConfirm} disabled = {this.state.syncing} > 
                 Next {' '}
                 {
-                  this.state.syncing? <i className ="fa fa-refresh fa-spin" /> : <i className ="fa fa-chevron-right" />
+                  this.state.syncing? <i className ="fa fa-circle-o-notch fa-spin" /> : <i className ="fa fa-chevron-right" />
                 } 
               </button>
             </div>
@@ -178,8 +178,14 @@ class Password extends Component {
             </div>
             <div className="w3-cell" style={{textAlign: 'right'}}>
               <button className = {`w3-button w3-blue`} 
-                    onClick = {this.submit} >
-                    Submit <i className ="fa fa-level-down fa-rotate-90" style = {{marginLeft: '4px'}} /> 
+                    onClick = {this.submit} disabled = {this.state.syncing} >
+                Submit {' '} 
+                {
+                  this.state.syncing ?
+                    <i className ="fa fa-circle-o-notch w3-spin" style = {{marginLeft: '4px'}} />
+                  :
+                  <i className ="fa fa-level-down fa-rotate-90" style = {{marginLeft: '4px'}} />
+                }
               </button>          
             </div>
           </div>                    
