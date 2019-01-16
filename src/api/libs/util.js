@@ -41,4 +41,8 @@ function serializeUser(user) {
   return _user
 }
 
-module.exports = { generateAuthenToken, setHttpCookie, serializeUser }
+function checkPassword(user, password) {
+  return user.credentials.password === password
+}
+
+module.exports = { generateAuthenToken, setHttpCookie, serializeUser, checkPassword }
