@@ -15,7 +15,6 @@ function done(helpers) {
     const app = req.query.app
     helpers.Collections.Apps.find({realm,app}, (apps) => {
       if (apps && apps[0]) {
-        console.log('clear session cookie')
         res.clearCookie('session')
         const data = { targetOrigin: apps[0].url, realm, session: null }
         res.writeHead( 200, { "Content-Type": "text/html" } );
