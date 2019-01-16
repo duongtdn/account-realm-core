@@ -10,7 +10,7 @@ class Email extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: 'awesome@team.com',
+      email: 'initiator@test.com',
       error: '',
       syncing: false
     }
@@ -132,7 +132,8 @@ class Password extends Component {
     super(props)
     this.state = {
       password: '123',
-      error: ''
+      error: '',
+      syncing: false
     }
     this.getTypedPassword = this.getTypedPassword.bind(this);
     this.handleKeyUpForPassword = this.handleKeyUpForPassword.bind(this);
@@ -201,8 +202,28 @@ class Password extends Component {
   }
 
   submit() {
-    console.log('submitting...')
-    this.props.onSignedIn && this.props.onSignedIn({profile: {displayName: 'Awesome', email: this.props.data.email}})
+    const username = this.props.data.email
+    const password = this.state.password
+    this.setState({ syncing : true })
+    xhttp.post(`${this.props.urlBasePath}/session`, { username, password, realm: window.__data.realm },  (status, response) => {
+      const syncing = false
+      if (status === 200) {
+        this.setState({ error: '', syncing })
+        const session = JSON.parse(response)
+        this.props.onSignedIn && this.props.onSignedIn(session)
+        return
+      } 
+      if (status === 401) {
+        const error = `Invalid password`
+        this.setState({ error, syncing })
+        return
+      }
+      if (status !== 200) {
+        const error = `An error occur during singing in. Error: ${status}`
+        this.setState({ error, syncing })
+        return
+      }
+    })
   }
 }
 
@@ -217,13 +238,14 @@ class Welcome extends Component {
       this._timer = setTimeout(() => {
         clearTimeout(this._timer)
         this.props.close && this.props.close()
-      }, 1000)
+      }, 1500)
     }
   }
 
 
   render() {
-    const display = this.props.display ? 'block' : 'none';
+    const display = this.props.display ? 'block' : 'none'
+    const user = this.props.session && this.props.session.user ? this.props.session.user : {}
     return (
       <div className={`w3-animate-top`} style = {{ display }} >
         
@@ -231,7 +253,7 @@ class Welcome extends Component {
         <div className = "" style = {{textAlign: 'center'}} >
 
           <div >
-            <h3> Welcome {this.props.data.profile && this.props.data.profile.displayName} </h3>
+            <h3> Welcome {user.profile && user.profile.displayName} </h3>
           </div>
 
           <p>
@@ -252,15 +274,16 @@ export default class SignIn extends Component {
     super(props)
     this.state = {
       data: {},
-      flow: 'email'
+      flow: 'email',
+      session: null
     }
     this.flow = ['email', 'password', 'welcome']
     this.getData = this.getData.bind(this)
     this.back = this.back.bind(this)
+    this.onSuccess = this.onSuccess.bind(this)
   }
 
   render() {
-    console.log(this.state.data)
     const urlBasePath = this.props.urlBasePath || ''
     return (
       <div className="w3-container" style={{ padding: "10px 12px", maxWidth: "460px" }}>
@@ -275,7 +298,8 @@ export default class SignIn extends Component {
                   data = {this.state.data}
                   close = {this.props.close}   
                   back = {this.back}
-                  onSignedIn= {this.getData}
+                  onSignedIn= {this.onSuccess}
+                  urlBasePath = {urlBasePath}
         />
         <Welcome  display = {this.display('welcome')}
                   data = {this.state.data}
@@ -315,6 +339,12 @@ export default class SignIn extends Component {
 
   getData(data) {
     this.setState({data: {...this.state.data, ...data}})
+    this.next()
+  }
+
+  onSuccess(session) {
+    this.setState({session})
+    this.props.onSuccess && this.props.onSuccess(session)
     this.next()
   }
 
