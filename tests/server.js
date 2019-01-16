@@ -15,7 +15,19 @@ const Apps = [
 ]
 
 const Users = [
-
+  {
+    uid: 'initiator',
+    username: 'initiator@test.com',
+    credentials: {
+      password: '123'
+    },
+    profile: {
+      email: ['breaker@test.com'],
+      displayName: 'Initiator Tester',
+      fullName: 'Initiator Tester'
+    },
+    verified: false
+  }
 ]
 
 api.helpers({
