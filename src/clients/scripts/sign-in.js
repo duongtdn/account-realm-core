@@ -15,7 +15,6 @@ function xclose() {
   postMessage('iframe.close')
 }
 
-function onSigninSuccess(session) {
-  console.log('on signed in success')
-  // postMessage('iframe.done', { status: 200, session })
+function onSigninSuccess(session) {  
+  postMessage('iframe.done', { status: 200, session })
 }
