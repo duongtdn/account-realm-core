@@ -3,7 +3,7 @@
 const uuid = require('uuid/v1')
 const jwt = require('jsonwebtoken')
 
-const { generateAuthenToken, setHttpCookie, serializeUser } = require('./libs/util')
+const { hashPassword, generateAuthenToken, setHttpCookie, serializeUser } = require('./libs/util')
 
 function validateParameters() {
   return function(req, res, next) {
@@ -54,7 +54,7 @@ function createUser(helpers) {
     const user = {
       username: req.body.user.email.toLowerCase().trim(),
       uid: uuid(),
-      credentials: { password: req.body.user.password },
+      credentials: { password: hashPassword(req.body.user.password) },
       profile,
       verified: false,
       createdAt: (new Date()).getTime()
@@ -77,6 +77,7 @@ function sendEmail(helpers) {
     if (helpers.sendEmail) {
       /* generate token to active email */
       const user = req.user
+      console.log(user)
       const token = jwt.sign(
         {uid: user.uid}, 
         process.env.DELIGATE_KEY_VERIFY_EMAIL || 'DELIGATE_KEY_VERIFY_EMAIL'
