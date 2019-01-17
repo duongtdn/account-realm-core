@@ -4,6 +4,10 @@ const html = require('../clients/templates/html')
 
 function render(helpers) {
   return function(req, res) {
+    if (!(req.query && req.query.name)) {
+      _renderError(res, '400 Bad request', 'Form name is not specified')
+      return
+    }
     if (!(req.query && req.query.realm && req.query.app)) {
       _renderError(res, '403 Forbidden', 'Application is not registered')
       return
@@ -12,7 +16,9 @@ function render(helpers) {
     const app = req.query.app
     helpers.Collections.Apps.find({realm,app}, (apps) => {
       if (apps && apps[0]) {
-        _renderSignin(res, realm, apps[0])
+        const title = req.query.title || 'Form'
+        const name = req.query.name
+        _renderForm(res, name, title, realm, apps[0])
       } else {
         _renderError(res, '403 Forbidden', 'Application is not registered')
       }
@@ -26,10 +32,10 @@ function _renderError(res, code, detail) {
   res.end(html({title: 'Error', data, script: `${process.env.CDN}/error.js`}))
 }
 
-function _renderSignin(res, realm, app) {
-  const data = { targetOrigin: app.url, realm }
+function _renderForm(res, name, title, realm, app) {
+  const data = { targetOrigin: app.url, realm, app: app.appId }
   res.writeHead( 200, { "Content-Type": "text/html" } );
-  res.end(html({title: 'Signin', data, script: `${process.env.CDN}/signin.js`}))
+  res.end(html({title, data, script: `${process.env.CDN}/${name}.js`}))
 }
 
 module.exports = render

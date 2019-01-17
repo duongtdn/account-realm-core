@@ -16,11 +16,6 @@ api
     post: require('./new-session')
   }
 )
-.add('/session/new',
-  {
-    get: require('./sign-in-form')
-  }
-)
 .add('/session/clean',
   {
     get: require('./clean-session')
@@ -35,9 +30,11 @@ api
     get: require('./get-user')
   }
 )
-.add('/users/new',
+
+/* forms */
+api.add('/form',
   {
-    get: require('./sign-up-form')
+    get: require('./form')
   }
 )
 

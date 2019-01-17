@@ -51,8 +51,7 @@ class Email extends Component {
         <div style = {{marginBottom: '42px'}}>
         <div className="w3-cell-row">
             <div className="w3-cell">
-              {/* <label className="w3-text-red w3-large"><a href={`${this.props.urlBasePath}/users/new?realm={realm}&app={app}`}> Create New Account </a></label> */}
-              <label className="w3-text-red w3-large"><a href={`${this.props.urlBasePath}/users/new?realm=realm&app=dev`}> Create New Account </a></label>
+              <label className="w3-text-red w3-large"><a href={`${this.props.urlBasePath}/form?name=signup&realm=${__data.realm}&app=${__data.app}`}> Create New Account </a></label>
             </div>
             <div className="w3-cell" style={{textAlign: 'right'}}>
               <button type="submit" className={`w3-button w3-blue `} onClick={this.onConfirm} disabled = {this.state.syncing} > 
