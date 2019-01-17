@@ -18,10 +18,15 @@ function validateParameters() {
   }
 }
 
+/*
+currently, check if user has joined a realm to allow user to sign in to that realm.
+In future, cross realm sign in shoud be allowed. when user sign in success, popup
+a consent form asking whether user allows app to access to realm resource
+*/
 function findUser(helpers) {
   return function(req, res, next) {   
     helpers.Collections.Users.find({username: req.body.username}, (users) => {
-      if (users && users[0]) {
+      if (users && users[0] && users[0].realms[req.realm]) {
         req.user = users[0]
         next()
       } else {
