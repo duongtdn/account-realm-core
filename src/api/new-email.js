@@ -1,5 +1,7 @@
 "use strict"
 
+const jwt = require('jsonwebtoken')
+
 const html = require('../clients/templates/html')
 
 function validateRequest(helpers) {
@@ -36,7 +38,9 @@ function findUser(helpers) {
 
 function createToken() {
   return function(req, res, next) {
-    req.token = 'token'
+    const user = req.user
+    const secret = process.env.EMAIL_SIGN_KEY
+    req.token = jwt.sign({ uid: user.uid }, secret) 
     next()
   }
 }
