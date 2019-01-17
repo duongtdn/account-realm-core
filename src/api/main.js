@@ -39,11 +39,10 @@ api.add('/form',
 )
 
 /* outbox */
-
-
-module.exports = api
 api.add('/outbox',
   {
     post: require('./new-email')
   }
 )
+
+module.exports = api
