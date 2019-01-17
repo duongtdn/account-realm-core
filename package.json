@@ -1,9 +1,10 @@
 {
   "name": "account-realm-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "core apis of account-realm provider",
   "main": "src/main.js",
   "scripts": {
+    "prepare": "npm run build",
     "build:clients": "webpack --config webpack.build.config.js",
     "build": "rm -rf build && npm run build:clients",
     "start": "npm run build && node tests/server",
