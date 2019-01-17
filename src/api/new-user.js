@@ -51,11 +51,15 @@ function createUser(helpers) {
       profile.picture = process.env.DEFAULT_MALE_PICTURE
     }
 
+    const realms = {}
+    realms[req.realm] = true
+
     const user = {
       username: req.body.user.email.toLowerCase().trim(),
       uid: uuid(),
       credentials: { password: hashPassword(req.body.user.password) },
       profile,
+      realms,
       verified: false,
       createdAt: (new Date()).getTime()
     }
