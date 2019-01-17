@@ -83,7 +83,7 @@ function sendEmail(helpers) {
       const user = req.user
       const token = jwt.sign(
         {uid: user.uid}, 
-        process.env.DELIGATE_KEY_VERIFY_EMAIL || 'DELIGATE_KEY_VERIFY_EMAIL'
+        process.env.EMAIL_SIGN_KEY
       )   
       helpers.sendEmail({
         recipient: [{ email: user.profile.email[0], name: user.profile.displayName }],
