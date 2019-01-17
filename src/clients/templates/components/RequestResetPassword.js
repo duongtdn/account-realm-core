@@ -10,6 +10,9 @@ export default class RequestRestPassword extends Component {
     return (
       <form className = "w3-container" method="post" action = "/outbox">
         <input type = "hidden" value = {this.props.email} name = "email" />
+        <input type = "hidden" value = 'resetemail' name = "template" />
+        <input type = "hidden" value = {__data.realm} name ='realm'  />
+        <input type = "hidden" value = {__data.app} name = 'app' />
         <h3 className = "w3-text-blue"> You are requesting to reset password </h3> 
         <p> An email containing link to reset your password will be sent to <span className="w3-text-blue" style={{fontWeight: 'bold'}}> {this.props.email} </span> </p>
         <p> Click the button below to confirm your request </p>
