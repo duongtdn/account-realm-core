@@ -68,9 +68,9 @@ api.helpers({
 
 api.helpers({
   sendEmail({recipient, template, data}) {
-    return new Promise((response, reject) => {
+    return new Promise((resolve, reject) => {
       console.log('Sending email...')
-      reject()
+      resolve()
     })
   }
 })
