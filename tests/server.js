@@ -69,7 +69,11 @@ api.helpers({
 api.helpers({
   sendEmail({recipient, template, data}) {
     return new Promise((resolve, reject) => {
-      console.log('Sending email...')
+      console.log(`Sending email <${template}> ...`)
+      console.log(`recipient: ${recipient[0].name}<${recipient[0].email}>`)
+      console.log('Token')
+      console.log(data.token)
+      console.log('Email sent successful')
       resolve()
     })
   }
