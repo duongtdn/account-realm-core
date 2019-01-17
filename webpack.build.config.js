@@ -8,7 +8,8 @@ module.exports = {
     error: ['./src/clients/scripts/error.js'],
     sso: ['./src/clients/scripts/sso.js'],
     signin: ['./src/clients/scripts/sign-in.js'],
-    requestresetpassword: ['./src/clients/scripts/request-reset-password']
+    requestresetpassword: ['./src/clients/scripts/request-reset-password.js'],
+    emailsent: ['./src/clients/scripts/email-sent.js']
   },
   output: {
     path: path.resolve(__dirname, "build/clients"),
