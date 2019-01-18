@@ -30,6 +30,11 @@ api
     get: require('./get-user')
   }
 )
+.add('/users/password', 
+  {
+    post: require('./new-password')
+  }
+)
 
 /* forms */
 api.add('/form',
@@ -51,4 +56,5 @@ api.add('/link/pwdreset/:token',
     get: require('./link-pwdreset')
   }
 )
+
 module.exports = api
