@@ -21,20 +21,30 @@ function generateAuthenToken(helpers) {
   }
 }
 
-function setHttpCookie() {
-  return function(req, res, next) {    
-    const user = req.user
-    const uid = jwt.sign(
-      {uid: user.uid}, 
-      process.env.AUTH_KEY_COOKIE_ENCODE || 'AUTH_KEY_COOKIE_ENCODE'
-    );    
-    const clientId = Math.random().toString(36).substr(2,9)
-    const session = { uid, clientId }
-    const cookie = JSON.stringify(session)
-    res.cookie('session', cookie, { httpOnly: true })
-    next()
-  }
+function encodeCookie(user) {
+  return JSON.stringify({
+    uid: jwt.sign({uid: user.uid}, process.env.COOKIE_AUTHEN_KEY),
+    clientId: Math.random().toString(36).substr(2,9)
+  })
 }
+
+function decodeCookie(cookies) {
+  return new Promise((resolve, reject) => {
+    const session = JSON.parse(cookies.session)
+    if (!session.uid) {
+      reject('invalid_session')
+      return
+    }
+    jwt.verify(session.uid, process.env.COOKIE_AUTHEN_KEY, (err, decoded) => {
+      if (err) {
+        reject(err)
+      } else {
+        req.uid = decoded.uid
+        resolve({ uid: decoded.uid, clientId: session.clientId })
+      }
+    })
+  })
+} 
 
 function serializeUser(user) {
   const _user = {...user}
@@ -55,4 +65,4 @@ function hashPassword(password) {
   return hash.digest('hex')
 }
 
-module.exports = { generateAuthenToken, setHttpCookie, serializeUser, checkPassword, hashPassword }
+module.exports = { generateAuthenToken, encodeCookie, decodeCookie, serializeUser, checkPassword, hashPassword }

@@ -3,7 +3,7 @@
 const uuid = require('uuid/v1')
 const jwt = require('jsonwebtoken')
 
-const { hashPassword, generateAuthenToken, setHttpCookie, serializeUser } = require('./libs/util')
+const { hashPassword, generateAuthenToken, encodeCookie, serializeUser } = require('./libs/util')
 
 function validateParameters() {
   return function(req, res, next) {
@@ -92,6 +92,14 @@ function sendEmail(helpers) {
       }).catch(err => console.warn(`User ${user.profile.displayName}[${user.profile.email[0]}] is created. But failed to send verification email`))      
     }
     next()
+  }
+}
+
+function setHttpCookie() {
+  return function(req, res, next) {    
+    const cookie = encodeCookie(req.user)
+    res.cookie('session', cookie, { httpOnly: true })
+    next()      
   }
 }
 

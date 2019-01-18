@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken')
 
-const { generateAuthenToken, serializeUser } = require('./libs/util')
+const { generateAuthenToken, serializeUser, decodeCookie } = require('./libs/util')
 const html = require('../clients/templates/html')
 
 function validateParameters(helpers) {
@@ -30,7 +30,7 @@ function validateParameters(helpers) {
   }
 }
 
-function decodeCookie() {
+function getSession() {
   return function(req, res, next) {
     const cookies = req.cookies
     const app = req.app
@@ -39,23 +39,16 @@ function decodeCookie() {
       res.end(html({title: 'SSO', style: false, data, script: `${process.env.CDN}/sso.js`}))
       return
     }
-    const session = JSON.parse(cookies.session)
-    if (!session.uid) {
-      const data = { targetOrigin: app.url, error: {code: 400, detail: 'bad request'} }
-      res.writeHead( 400, { "Content-Type": "text/html" } )
-      res.end(html({title: 'Error', style: false, data, script: `${process.env.CDN}/error.js`}))
-      return
-    }
-    jwt.verify(session.uid, process.env.AUTH_KEY_COOKIE_ENCODE || 'AUTH_KEY_COOKIE_ENCODE', (err, decoded) => {
-      if (err) {
+    decodeCookie(cookies)
+      .then( session => {
+        req.uid = session.uid
+        next()
+      })
+      .catch( err => {
         const data = { targetOrigin: app.url, error: {code: 400, detail: 'bad request'} }
         res.writeHead( 400, { "Content-Type": "text/html" } )
         res.end(html({title: 'Error', style: false, data, script: `${process.env.CDN}/error.js`}))
-      } else {
-        req.uid = decoded.uid
-        next()
-      }
-    })
+      })        
   }
 }
 
@@ -85,4 +78,4 @@ function response() {
   }
 }
 
-module.exports = [validateParameters, decodeCookie, findUser, generateAuthenToken, response]
+module.exports = [validateParameters, getSession, findUser, generateAuthenToken, response]

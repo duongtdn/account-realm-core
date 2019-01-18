@@ -1,6 +1,6 @@
 "use strict"
 
-const { checkPassword, generateAuthenToken, setHttpCookie, serializeUser } = require('./libs/util')
+const { checkPassword, generateAuthenToken, encodeCookie, serializeUser } = require('./libs/util')
 
 function validateParameters() {
   return function(req, res, next) {
@@ -43,6 +43,14 @@ function verifyPassword() {
     } else {
       res.status(401).send('wrong password')
     }
+  }
+}
+
+function setHttpCookie() {
+  return function(req, res, next) {    
+    const cookie = encodeCookie(req.user)
+    res.cookie('session', cookie, { httpOnly: true })
+    next()      
   }
 }
 
