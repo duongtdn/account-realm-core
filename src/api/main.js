@@ -45,4 +45,10 @@ api.add('/outbox',
   }
 )
 
+/* link */
+api.add('/link/pwdreset/:token', 
+  {
+    get: require('./link-pwdreset')
+  }
+)
 module.exports = api

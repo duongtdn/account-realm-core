@@ -9,7 +9,8 @@ module.exports = {
     sso: ['./src/clients/scripts/sso.js'],
     signin: ['./src/clients/scripts/sign-in.js'],
     requestresetpassword: ['./src/clients/scripts/request-reset-password.js'],
-    emailsent: ['./src/clients/scripts/email-sent.js']
+    emailsent: ['./src/clients/scripts/email-sent.js'],
+    pwdreset: ['./src/clients/scripts/pwdreset.js']
   },
   output: {
     path: path.resolve(__dirname, "build/clients"),
