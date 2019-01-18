@@ -71,8 +71,14 @@ api.helpers({
     return new Promise((resolve, reject) => {
       console.log(`Sending email <${template}> ...`)
       console.log(`recipient: ${recipient[0].name}<${recipient[0].email}>`)
-      console.log('Token')
-      console.log(data.token)
+      if (template === 'verifyemail') {
+        console.log('Link:')
+        console.log(`http://localhost:3100/link/mailverify/${data.token}`)
+      }            
+      if (template === 'resetemail') {
+        console.log('Link:')
+        console.log(`http://localhost:3100/link/pwdreset/${data.token}`)
+      }            
       console.log('Email sent successful')
       resolve()
     })
