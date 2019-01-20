@@ -61,6 +61,18 @@ api.helpers({
           done && done(user)
         }, 500)
         return this
+      },
+      update({uid}, update, done) {
+        Users.forEach( _user => {
+          if (_user.uid === uid) {
+            for (let p in update) {
+              _user[p] = update[p]
+            }
+          }
+        })
+        setTimeout(() => {
+          done && done(null, update)
+        },500)
       }
     }
   }
