@@ -105,7 +105,7 @@ export default class NewPasswordForm extends Component {
       </div>
     )
   }
-  onSubmit(password) {
+  onSubmit({password}) {
     const token = __data.token
     this.setState({ syncing : true })
     xhttp.post(`${this.props.urlBasePath}/users/password`, { token, password }, (status, response) => {
