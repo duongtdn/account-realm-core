@@ -16,7 +16,25 @@ class TabPassword extends Component {
   render() {
     return (
       <div className = "">
-        <h4> Change password </h4>
+        <header>
+          <h4 className = "w3-text-blue"> <i className="fa fa-key" /> <label> Change Password </label></h4>
+        </header>    
+        <div>
+          <p className = "w3-text-grey">
+            Enter your current password
+          </p>
+          <input  className = {`w3-input w3-border`}
+                  type = "password" 
+                  placeholder = "current password"
+
+          />
+          <hr />
+          <NewPasswordBox   onConfirm = {this.props.onConfirm}
+                            btnLabel = 'Submit new password'           
+                            icon = ''
+                            syncing = {this.props.syncing}
+          />
+        </div>    
       </div>
     )
   }
@@ -112,7 +130,7 @@ export default class MyAccount extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tab: 'profile'
+      tab: 'password'
     }
     this.tabs = ['password', 'profile']
   }
