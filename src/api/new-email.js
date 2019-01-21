@@ -40,7 +40,7 @@ function createToken() {
   return function(req, res, next) {
     const user = req.user
     const secret = process.env.EMAIL_SIGN_KEY
-    req.token = jwt.sign({ uid: user.uid }, secret, { expiresIn: '1h' }) 
+    req.token = jwt.sign({ uid: user.uid }, secret, { expiresIn: '1m' }) 
     next()
   }
 }
