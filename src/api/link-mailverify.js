@@ -28,6 +28,19 @@ function decodeToken() {
   }
 }
 
+function setEmailVerified(helpers) {
+  return function(req, res, next) {
+    const uid = req.uid
+    helpers.Collections.Users.update({ uid }, { verified: true }, (err, updated) => {
+      if (err) {
+        _renderError(res, 500, 'DB access failed')
+      } else {
+        next()
+      }
+    })
+  }
+}
+
 function render(helpers) {
   return function(req, res) {    
     _renderForm(res, 'mailverify', 'Email Verification', req.params.token)            
@@ -46,5 +59,5 @@ function _renderForm(res, name, title, token) {
   res.end(html({title, data, script: `${process.env.CDN}/${name}.js`}))
 }
 
-module.exports = [validateParams, decodeToken, render]
+module.exports = [validateParams, decodeToken, setEmailVerified, render]
 
