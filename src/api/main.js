@@ -51,9 +51,15 @@ api.add('/outbox',
 )
 
 /* link */
-api.add('/link/pwdreset/:token', 
+api
+.add('/link/pwdreset/:token', 
   {
     get: require('./link-pwdreset')
+  }
+)
+.add('/link/mailverify/:token', 
+  {
+    get: require('./link-mailverify')
   }
 )
 
