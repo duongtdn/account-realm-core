@@ -20,14 +20,17 @@ class TabPassword extends Component {
           <h4 className = "w3-text-blue"> <i className="fa fa-key" /> <label> Change Password </label></h4>
         </header>    
         <div>
-          <p className = "w3-text-grey">
-            Enter your current password
+          <p>
+            <label> Enter your Password</label>
+            <label className="w3-right w3-text-red"> {this.state.error} </label> 
+            <input  className = {`w3-input w3-border ${borderColor}`}
+                    type = "password" 
+                    placeholder = "password"
+                    value = {this.state.password}
+                    onChange = {this.getTypedPassword}
+                    onKeyUp = {this.handleKeyUpForPassword}
+            />            
           </p>
-          <input  className = {`w3-input w3-border`}
-                  type = "password" 
-                  placeholder = "current password"
-
-          />
           <hr />
           <NewPasswordBox   onConfirm = {this.props.onConfirm}
                             btnLabel = 'Submit new password'           
