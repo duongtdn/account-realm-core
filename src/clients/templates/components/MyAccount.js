@@ -9,19 +9,26 @@ function _titleCase(str) {
   return str.charAt(0).toUpperCase() + str.substring(1)
 }
 
-class TabPassword extends Component {
+class PasswordBox extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      password: '123',
+      error: '',
+      syncing: false
+    }
+    this.getTypedPassword = this.getTypedPassword.bind(this);
+    this.handleKeyUpForPassword = this.handleKeyUpForPassword.bind(this);
+    this.submit = this.submit.bind(this)
   }
+
   render() {
+    const borderColor = this.state.error.length > 0 ? 'w3-border-red': ''
     return (
-      <div className = "">
-        <header>
-          <h4 className = "w3-text-blue"> <i className="fa fa-key" /> <label> Change Password </label></h4>
-        </header>    
-        <div>
+      <div >
+        <div className = "" >          
           <p>
-            <label> Enter your Password</label>
+            <label className="w3-text-grey" >Password</label>
             <label className="w3-right w3-text-red"> {this.state.error} </label> 
             <input  className = {`w3-input w3-border ${borderColor}`}
                     type = "password" 
@@ -31,15 +38,99 @@ class TabPassword extends Component {
                     onKeyUp = {this.handleKeyUpForPassword}
             />            
           </p>
+        </div>
+        <div style = {{marginBottom: '42px'}}>
+          <div className="w3-cell-row">
+            <div className="w3-cell">
+            {/* <label className="w3-text-orange "><a href={`${this.props.urlBasePath}/form?name=requestresetpassword&realm=${__data.realm}&app=${__data.app}&email=${this.props.data.email}`}> Forgot your password </a></label> */}
+            </div>
+            <div className="w3-cell" style={{textAlign: 'right'}}>
+              <button className = {`w3-button w3-blue`} 
+                    onClick = {this.submit} disabled = {this.state.syncing} >
+                Submit {' '} 
+                {
+                  this.state.syncing ?
+                    <i className ="fa fa-circle-o-notch w3-spin" style = {{marginLeft: '4px'}} />
+                  :
+                  <i className ="fa fa-level-down fa-rotate-90" style = {{marginLeft: '4px'}} />
+                }
+              </button>          
+            </div>
+          </div>                    
+        </div>        
+      </div>
+    )
+  }
+
+  getTypedPassword(evt) {
+    const password = evt.target.value;
+    const error = password.length === 0 ? 'Password must not empty' : '';
+    this.setState({ password, error })
+  }
+
+  handleKeyUpForPassword(evt) {
+    if (evt.which == 13 || evt.keyCode == 13) {
+      this.submit()
+    }
+  }
+
+  submit() {    
+    const password = this.state.password
+    if (this.state.error.length > 0) {
+      return
+    }
+    this.setState({ syncing: true })
+    this.props.onConfirm && this.props.onConfirm(password, (error) => {
+      const syncing = false
+      if (error) {
+        this.setState({error, syncing})
+      } else {
+        this.setState({err: '', syncing})
+      }
+    })
+  }
+}
+
+class TabPassword extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      password: '',
+      newPassword: '',
+      display: 'password'
+    }
+    this.validateAuthentication = this.validateAuthentication.bind(this)
+  }
+  render() {
+    return (
+      <div className = ""> 
+        <div>
+          <div style={{ display: this.display('password') }} >
+            <p className="w3-text-blue"> Submit your password to unlock </p>
+            <PasswordBox  onConfirm = {this.validateAuthentication}
+            />
+          </div>
           <hr />
-          <NewPasswordBox   onConfirm = {this.props.onConfirm}
-                            btnLabel = 'Submit new password'           
-                            icon = ''
-                            syncing = {this.props.syncing}
-          />
+          <div style={{ display: this.display('newPassword') }} >
+            <h4> Change Password </h4>
+            <NewPasswordBox   onConfirm = { pwd => console.log(pwd)}
+                              btnLabel = 'Submit new password'           
+                              icon = ''
+            />
+          </div>
         </div>    
       </div>
     )
+  }
+  validateAuthentication(password, done) {
+    setTimeout(() => {
+      console.log(password)
+      done(null)
+      this.setState({ password, display: 'newPassword' })
+    },1000)
+  }
+  display(state) {
+    return this.state.display === state ? 'block' : 'none'
   }
 }
 
@@ -76,11 +167,11 @@ class SideBar extends Component {
       <div className="w3-sidebar w3-bar-block w3-border-right w3-hide-small" style={{background: 'none', width: '200px'}}>
         <h3 className="w3-bar-item">Menu</h3>
         {
-          this.props.tabs.map( tab => (
+          this.props.tabs.map( tab => (            
             <button key = {tab} className={`w3-bar-item w3-button w3-border-bottom ${this.isActive(tab)? 'w3-blue': ''}`} 
                  onClick={() => this.props.onSelectTab(tab)} 
             >
-              { _titleCase(tab) }
+              <i className="fa fa-key"></i> { _titleCase(tab) }
             </button> 
           ))
         }  
