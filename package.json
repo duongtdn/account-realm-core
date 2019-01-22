@@ -9,7 +9,7 @@
     "build": "rm -rf build && npm run build:clients",
     "start": "npm run build && node tests/server",
     "dev": "webpack-dev-server --config webpack.dev.config.js  --port 3200 --host 0.0.0.0 --watch-poll",
-    "test": "webpack-dev-server --config webpack.test.config.js  --port 3200 --host 0.0.0.0 --watch-poll"
+    "test": "webpack-dev-server --config webpack.test.config.js  --port 3300 --host 0.0.0.0 --watch-poll"
   },
   "repository": {
     "type": "git",
