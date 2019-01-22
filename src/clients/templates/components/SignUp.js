@@ -136,7 +136,7 @@ class Password extends Component {
             <h3> {this.props.data.email} </h3>
           </div>
           <hr />
-          <NewPasswordBox onConfirm = {this.props.onConfirm}
+          <NewPasswordBox onConfirm = { (password, done) => { this.props.onConfirm && this.props.onConfirm({ password }); done(null) } }
                           btnLabel = 'Continue'           
                           icon = 'fa fa-chevron-right'
           />

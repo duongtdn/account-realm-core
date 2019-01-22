@@ -69,10 +69,9 @@ class Password extends Component {
             </h3>
           </header>
           <hr />
-          <NewPasswordBox   onConfirm = {this.props.onConfirm}
+          <NewPasswordBox   onConfirm = { this.props.onConfirm }
                             btnLabel = 'Submit new password'           
                             icon = ''
-                            syncing = {this.props.syncing}
           />
         </div>        
       </div>
@@ -95,7 +94,6 @@ export default class NewPasswordForm extends Component {
       <div className = "w3-container" style = {{ marginTop: '48px' }}>
         <Password display = {this.display('password')}
                   onConfirm = {this.onSubmit}                          
-                  syncing = {this.state.syncing}
         />   
         <Error  display = {this.display('error')}
                 error = {this.state.error}
@@ -105,17 +103,19 @@ export default class NewPasswordForm extends Component {
       </div>
     )
   }
-  onSubmit({password}) {
+  onSubmit(password, done) {
     const token = __data.token
     this.setState({ syncing : true })
     xhttp.post(`${this.props.urlBasePath}/users/password`, { token, password }, (status, response) => {
       const syncing = false
       if (status === 200) {
+        done && done(null)
         this.setState({ error: '', syncing, flow: 'success' })        
         return
       } 
       if (status !== 200) {
         const error = `An error occur during submitting. Error: ${status}`
+        done && done(error)
         this.setState({ error, syncing, flow: 'error' })
         return
       }
