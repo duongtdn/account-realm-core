@@ -27,6 +27,10 @@ class TabPassword extends Component {
           <div style={{ display: this.display('password') }} >
             <p className="w3-text-blue"> Submit your password to unlock </p>
             <PasswordBox  onConfirm = {this.validateAuthentication}
+                          realm = 'account'
+                          app = 'account'
+                          email = {this.props.user.profile.email[0]}
+                          urlBasePath = {this.props.urlBasePath}
             />
           </div>
           <hr />

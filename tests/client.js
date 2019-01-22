@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <div> 
         {/* <SignIn urlBasePath = '/api' close = {() => console.log('close')} /> */}
-        <MyAccount urlBasePath = '/api' user = {{username : 'awesome@team.com'}} />
+        <MyAccount urlBasePath = '/api' user = {{username : 'awesome@team.com', profile: {email: ['awesome@team.com']} }} />
       </div>
     )
   }
