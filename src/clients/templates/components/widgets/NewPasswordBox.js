@@ -15,16 +15,17 @@ export default class NewPasswordBox extends Component {
       messageBox2 : '',
       password: '123',
       score: 0,
-      retypePassword: '123'
+      retypePassword: '123',
+      syncing: false
     }
 
-    this.onConfirm = this.onConfirm.bind(this);
-    this.getTypedPassword = this.getTypedPassword.bind(this);
-    this.getReTypePassword = this.getReTypePassword.bind(this);
-    this.handleKeyUpForPassword = this.handleKeyUpForPassword.bind(this);
+    this.onConfirm = this.onConfirm.bind(this)
+    this.getTypedPassword = this.getTypedPassword.bind(this)
+    this.getReTypePassword = this.getReTypePassword.bind(this)
+    this.handleKeyUpForPassword = this.handleKeyUpForPassword.bind(this)
     this.handleKeyUpForRetypePassword = this.handleKeyUpForRetypePassword.bind(this)
-    this._renderPasswordBox = this._renderPasswordBox.bind(this);
-    this._renderConfirmButton = this._renderConfirmButton.bind(this);
+    this._renderPasswordBox = this._renderPasswordBox.bind(this)
+    this._renderConfirmButton = this._renderConfirmButton.bind(this)
 
   }
 
@@ -53,27 +54,34 @@ export default class NewPasswordBox extends Component {
 
   getTypedPassword(evt) {
     const password = evt.target.value;
-    const messageBox1 = password.length === 0 ? 'Password must not empty' : '';
+    const messageBox1 = password.length === 0 ? 'Password must not empty' : ''
     this.setState({ password, messageBox1 })
   }
 
   handleKeyUpForPassword(evt) {
     /* score password */
-    const score = scorePassword(evt.target.value);
+    const score = scorePassword(evt.target.value)
     this.setState({ score })
   }
 
   onConfirm() {
-    const password = this.state.password;
-    const retypePassword = this.state.retypePassword;
+    const password = this.state.password
+    const retypePassword = this.state.retypePassword
     /* validate password empty */
     if (password.length === 0) {
-      this.setState({ messageBox1 : 'Password must not empty' });
+      this.setState({ messageBox1 : 'Password must not empty' })
       return
     }
     /* validate password match */
     if (password === retypePassword) {
-      this.props.onConfirm && this.props.onConfirm({password});
+      this.setState({ syncing: true })
+      this.props.onConfirm && this.props.onConfirm(password, (error) => {
+        if (error) {
+          this.setState({ messageBox1: error, messageBox2: error, syncing: false })
+        } else {
+          this.setState({syncing: false})
+        }
+      });
     }
     else {
       this.setState({ messageBox2 : 'Password mismatch' })
@@ -139,8 +147,10 @@ export default class NewPasswordBox extends Component {
     return (
       <div style = {{marginBottom: '42px', textAlign: 'right'}}>
         <button className = {`w3-button w3-blue`} 
-                onClick = {this.onConfirm} >
-                {this.props.btnLabel} <i className = {this.props.icon} /> 
+                onClick = {this.onConfirm} 
+                disabled = {this.state.syncing} 
+        >
+          {this.props.btnLabel} <i className = {this.props.icon} /> 
         </button>
       </div>
     )
