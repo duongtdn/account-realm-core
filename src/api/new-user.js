@@ -51,7 +51,7 @@ function createUser(helpers) {
       profile.picture = process.env.DEFAULT_MALE_PICTURE
     }
 
-    const realms = {}
+    const realms = { account: true }
     realms[req.realm] = true
 
     const user = {
