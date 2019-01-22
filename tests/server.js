@@ -7,11 +7,13 @@ const express = require('express')
 const api = require('../src/api/main')
 
 const Realms = [
+  {realmId: 'account', secret: 'realm-account-secret'},
   {realmId: 'realm', secret: 'realm-secret'}
 ]
 
 const Apps = [
-  {appId: 'dev', url: 'http://localhost:3200'}
+  {appId: 'account', url: 'http://localhost:3100'},
+  {appId: 'dev', url: 'http://localhost:3300'}
 ]
 
 const Users = [
