@@ -6,7 +6,6 @@ const { hashPassword } = require('./libs/util')
 
 function validateParameters() {
   return function(req, res, next) {
-    console.log(req.body)
     if (!(req.body && req.body.token && req.body.password && req.body.password.length > 0)) {
       res.status(400).send('bad request')    
     } else {
