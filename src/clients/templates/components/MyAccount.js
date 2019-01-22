@@ -168,10 +168,10 @@ class SideBar extends Component {
         <h3 className="w3-bar-item">Menu</h3>
         {
           this.props.tabs.map( tab => (            
-            <button key = {tab} className={`w3-bar-item w3-button w3-border-bottom ${this.isActive(tab)? 'w3-blue': ''}`} 
-                 onClick={() => this.props.onSelectTab(tab)} 
+            <button key = {tab.label} className={`w3-bar-item w3-button w3-border-bottom ${this.isActive(tab.label)? 'w3-blue': ''}`} 
+                 onClick={() => this.props.onSelectTab(tab.label)} 
             >
-              <i className="fa fa-key"></i> { _titleCase(tab) }
+              <i className={`fa ${tab.icon}`}></i> { _titleCase(tab.label) }
             </button> 
           ))
         }  
@@ -206,8 +206,8 @@ class Tabs extends Component {
         <div className="w3-dropdown-content w3-bar-block w3-card-4 w3-hide-medium w3-hide-large" style={{backgroundColor: '#f1f1f1'}}>
         {
           this.props.tabs.map(tab => (
-            <button key={tab}  className={`w3-bar-item w3-button w3-border-bottom`} onClick={() => this.props.onSelectTab(tab)}>
-              { _titleCase(tab) }
+            <button key={tab.label}  className={`w3-bar-item w3-button w3-border-bottom`} onClick={() => this.props.onSelectTab(tab.label)}>
+              <i className={`fa ${tab.icon}`}></i> { _titleCase(tab.label) }
             </button>
           ))
         }
@@ -226,7 +226,10 @@ export default class MyAccount extends Component {
     this.state = {
       tab: 'password'
     }
-    this.tabs = ['password', 'profile']
+    this.tabs = [
+      { icon: 'fa-key', label: 'password' }, 
+      { icon: 'fa-address-card-o', label: 'profile' }
+    ]
   }
   render() {
     return (
