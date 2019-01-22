@@ -35,7 +35,7 @@ export default class PasswordBox extends Component {
         <div style = {{marginBottom: '42px'}}>
           <div className="w3-cell-row">
             <div className="w3-cell">
-            {/* <label className="w3-text-orange "><a href={`${this.props.urlBasePath}/form?name=requestresetpassword&realm=${__data.realm}&app=${__data.app}&email=${this.props.data.email}`}> Forgot your password </a></label> */}
+            <label className="w3-text-orange "><a href={`${this.props.urlBasePath}/form?name=requestresetpassword&realm=${this.props.realm}&app=${this.props.app}&email=${this.props.email}`}> Forgot your password </a></label>
             </div>
             <div className="w3-cell" style={{textAlign: 'right'}}>
               <button className = {`w3-button w3-blue`} 
