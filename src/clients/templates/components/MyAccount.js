@@ -123,11 +123,24 @@ class TabPassword extends Component {
     )
   }
   validateAuthentication(password, done) {
-    setTimeout(() => {
-      console.log(password)
-      done(null)
-      this.setState({ password, display: 'newPassword' })
-    },1000)
+    const username = this.props.user.username
+    xhttp.post(`${this.props.urlBasePath}/session`, { username, password, realm: 'account' },  (status, response) => {
+      if (status === 200) {
+        done && done(null)
+        this.setState({ display: 'newPassword' })
+        return
+      } 
+      if (status === 401) {
+        const error = `Invalid password`
+        done && done(error)
+        return
+      }
+      if (status !== 200) {
+        const error = `An error occur during singing in. Error: ${status}`
+        done && done(error)
+        return
+      }
+    })
   }
   display(state) {
     return this.state.display === state ? 'block' : 'none'
@@ -216,7 +229,10 @@ class Tabs extends Component {
     )
   }
   renderTab(tab) {
-    return React.createElement(tabs[`Tab${_titleCase(tab)}`])
+    return React.createElement(tabs[`Tab${_titleCase(tab)}`], {
+      urlBasePath : this.props.urlBasePath,
+      user: this.props.user
+    })
   }  
 }
 
@@ -241,6 +257,8 @@ export default class MyAccount extends Component {
         <Tabs tabs = {this.tabs}
               activeTab = {this.state.tab}
               onSelectTab = { (tab) => this.setState({ tab }) }
+              user = { this.props.user }
+              urlBasePath = { this.props.urlBasePath }
         />
       </div>
     )
