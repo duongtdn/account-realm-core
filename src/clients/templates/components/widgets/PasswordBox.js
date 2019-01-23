@@ -6,7 +6,7 @@ export default class PasswordBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      password: '123',
+      password: '',
       error: '',
       syncing: false
     }
