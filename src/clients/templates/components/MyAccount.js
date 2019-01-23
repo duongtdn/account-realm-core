@@ -19,6 +19,7 @@ class TabPassword extends Component {
       display: 'password'
     }
     this.validateAuthentication = this.validateAuthentication.bind(this)
+    this.submitNewPassword = this.submitNewPassword.bind(this)
   }
   render() {
     return (
@@ -36,10 +37,14 @@ class TabPassword extends Component {
           <hr />
           <div style={{ display: this.display('newPassword') }} >
             <h4> Change Password </h4>
-            <NewPasswordBox   onConfirm = { pwd => console.log(pwd)}
+            <NewPasswordBox   onConfirm = {this.submitNewPassword}
                               btnLabel = 'Submit new password'           
                               icon = ''
             />
+          </div>
+          <div style={{ display: this.display('success') }} >
+            <h4> Change Password </h4>
+            <p className = 'w3-text-green'> Password updated! </p>
           </div>
         </div>    
       </div>
@@ -50,7 +55,7 @@ class TabPassword extends Component {
     xhttp.post(`${this.props.urlBasePath}/session`, { username, password, realm: 'account' },  (status, response) => {
       if (status === 200) {
         done && done(null)
-        this.setState({ display: 'newPassword' })
+        this.setState({ password, display: 'newPassword' })
         return
       } 
       if (status === 401) {
@@ -59,9 +64,21 @@ class TabPassword extends Component {
         return
       }
       if (status !== 200) {
-        const error = `An error occur during singing in. Error: ${status}`
+        const error = `Error: ${status}`
         done && done(error)
         return
+      }
+    })    
+  }
+  submitNewPassword(password, done) {
+    const username = this.props.user.username
+    xhttp.put(`${this.props.urlBasePath}/users/password`, { username, password: this.state.password, newPassword: password },  (status, response) => {
+      if (status === 200) {
+        done && done(null)
+        this.setState({ display: 'success' })
+      } else {
+        const error = `Error: ${status}`
+        done && done(error)
       }
     })
   }
