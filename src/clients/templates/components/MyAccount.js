@@ -101,11 +101,11 @@ class SideBar extends Component {
   render() {
     return (
       <div className="w3-sidebar w3-bar-block w3-border-right w3-hide-small" style={{background: 'none', width: '200px'}}>
-        <h3 className="w3-bar-item">Menu</h3>
+        <h4 className="w3-bar-item">Menu</h4>
         {
           this.props.tabs.map( tab => (            
-            <button key = {tab.label} className={`w3-bar-item w3-button w3-border-bottom ${this.isActive(tab.label)? 'w3-blue': ''}`} 
-                 onClick={() => this.props.onSelectTab(tab.label)} 
+            <button key = {tab.name} className={`w3-bar-item w3-button  ${this.isActive(tab.name)? 'w3-blue': ''}`} 
+                 onClick={() => this.props.onSelectTab(tab.name)} 
             >
               <i className={`fa ${tab.icon}`}></i> { _titleCase(tab.label) }
             </button> 
@@ -137,12 +137,12 @@ class Tabs extends Component {
   }
   renderDropdown() {
     return (
-      <div className="w3-dropdown-hover" style={{background:'none'}}>
-        <h3> {this.props.activeTab.toUpperCase()} <i className="fa fa-caret-down w3-hide-medium w3-hide-large" /> </h3>
+      <div className="w3-dropdown-hover" style={{background:'none', width: '100%'}}>
+        <h4 style={{marginTop: '16px'}}> {this.props.activeTab.toUpperCase()} <i className="fa fa-caret-down w3-hide-medium w3-hide-large" /> </h4>
         <div className="w3-dropdown-content w3-bar-block w3-card-4 w3-hide-medium w3-hide-large" style={{backgroundColor: '#f1f1f1'}}>
         {
           this.props.tabs.map(tab => (
-            <button key={tab.label}  className={`w3-bar-item w3-button w3-border-bottom`} onClick={() => this.props.onSelectTab(tab.label)}>
+            <button key={tab.name}  className={`w3-bar-item w3-button w3-border-bottom`} onClick={() => this.props.onSelectTab(tab.name)}>
               <i className={`fa ${tab.icon}`}></i> { _titleCase(tab.label) }
             </button>
           ))
@@ -166,8 +166,8 @@ export default class MyAccount extends Component {
       tab: 'password'
     }
     this.tabs = [
-      { icon: 'fa-key', label: 'password' }, 
-      { icon: 'fa-address-card-o', label: 'profile' }
+      { icon: 'fa-key', name: 'password', label: 'change password' }, 
+      { icon: 'fa-address-card-o', name: 'profile', label: 'profile' }
     ]
   }
   render() {
