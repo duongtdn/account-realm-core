@@ -25,7 +25,7 @@ export default class PasswordBox extends Component {
             <label className="w3-right w3-text-red"> {this.state.error} </label> 
             <input  className = {`w3-input w3-border ${borderColor}`}
                     type = "password" 
-                    placeholder = "password"
+                    placeholder = "Enter your password"
                     value = {this.state.password}
                     onChange = {this.getTypedPassword}
                     onKeyUp = {this.handleKeyUpForPassword}
