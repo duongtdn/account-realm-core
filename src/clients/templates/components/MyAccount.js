@@ -26,7 +26,7 @@ class TabPassword extends Component {
       <div className = ""> 
         <div>
           <div style={{ display: this.display('password') }} >
-            <p className="w3-text-blue"> Submit your password to unlock </p>
+            <p className="w3-text-blue"> Submit your password to unlock feature</p>
             <PasswordBox  onConfirm = {this.validateAuthentication}
                           realm = 'account'
                           app = 'account'
