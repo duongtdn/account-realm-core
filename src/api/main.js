@@ -32,7 +32,8 @@ api
 )
 .add('/users/password', 
   {
-    post: require('./new-password')
+    post: require('./new-password'),
+    put: require('./update-password')
   }
 )
 
