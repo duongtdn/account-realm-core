@@ -1,7 +1,7 @@
 "use strict"
 
 import React, { Component } from 'react'
-import { xhttp } from 'authenform-utils'
+import { xhttp, storage } from 'authenform-utils'
 
 import PasswordBox from './widgets/PasswordBox'
 import NewPasswordBox from './widgets/NewPasswordBox'
@@ -291,7 +291,7 @@ class TabProfile extends Component {
       return
     }
     this.setState({ syncing: true })
-    xhttp.put(`${this.props.urlBasePath}/me/profile`, { profile },  (status, response) => {
+    xhttp.put(`${this.props.urlBasePath}/me/profile`, { profile, token: storage.get('token') },  (status, response) => {
       this.setState({ syncing: false })
       if (status === 200) {
         this.props.onSuccess && this.props.onSuccess(profile)
