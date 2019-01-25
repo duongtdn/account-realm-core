@@ -64,4 +64,12 @@ api
   }
 )
 
+/* me */
+api
+.add('/me/profile',
+  {
+    put: require('./update-profile')
+  }
+)
+
 module.exports = api
