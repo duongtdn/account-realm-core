@@ -11,7 +11,8 @@ module.exports = {
     requestresetpassword: ['./src/clients/scripts/request-reset-password.js'],
     emailsent: ['./src/clients/scripts/email-sent.js'],
     pwdreset: ['./src/clients/scripts/pwdreset.js'],
-    mailverify: ['./src/clients/scripts/mailverify.js']
+    mailverify: ['./src/clients/scripts/mailverify.js'],
+    myaccount: ['./src/clients/scripts/myaccount.js']
   },
   output: {
     path: path.resolve(__dirname, "build/clients"),

@@ -411,19 +411,28 @@ export default class MyAccount extends Component {
   }
   render() {
     return (
-      <div className = "w3-container">
-        <SideBar  tabs = {this.tabs}
-                  activeTab = {this.state.tab}
-                  onSelectTab = { (tab) => this.setState({ tab }) }
-        />
-        <Tabs tabs = {this.tabs}
-              activeTab = {this.state.tab}
-              onSelectTab = { (tab) => this.setState({ tab }) }
-              user = { this.props.user }
-              urlBasePath = { this.props.urlBasePath }
-              onSuccess = { data => console.log(data) }
-              onError = { err => console.log(err) }
-        />
+      <div>
+        <header className="w3-bar w3-blue">
+          <div className="w3-right">
+            <button className="w3-bar-item w3-button" onClick={this.props.signUp}> Sign up</button>
+            <button id="signin" className="w3-bar-item w3-button"> Sign in</button>
+            <button id="signout" className="w3-bar-item w3-button"> Sign out</button>
+          </div>
+        </header>
+        <div className = "w3-container">
+          <SideBar  tabs = {this.tabs}
+                    activeTab = {this.state.tab}
+                    onSelectTab = { (tab) => this.setState({ tab }) }
+          />
+          <Tabs tabs = {this.tabs}
+                activeTab = {this.state.tab}
+                onSelectTab = { (tab) => this.setState({ tab }) }
+                user = { this.props.user }
+                urlBasePath = { this.props.urlBasePath }
+                onSuccess = { data => console.log(data) }
+                onError = { err => console.log(err) }
+          />
+        </div>
       </div>
     )
   }

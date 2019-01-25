@@ -66,6 +66,11 @@ api
 
 /* me */
 api
+.add('/me',
+  {
+    get: require('./myaccount')
+  }
+)
 .add('/me/profile',
   {
     put: require('./update-profile')
