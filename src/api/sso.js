@@ -1,7 +1,5 @@
 "use strict"
 
-const jwt = require('jsonwebtoken')
-
 const { generateAuthenToken, serializeUser, decodeCookie } = require('./libs/util')
 const html = require('../clients/templates/html')
 
@@ -45,6 +43,8 @@ function getSession() {
         next()
       })
       .catch( err => {
+        console.log('Decode Cookie Error')
+        console.log(err)
         const data = { targetOrigin: app.url, error: {code: 400, detail: 'bad request'} }
         res.writeHead( 400, { "Content-Type": "text/html" } )
         res.end(html({title: 'Error', style: false, data, script: `${process.env.CDN}/error.js`}))
