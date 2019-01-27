@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         break
     }
   })
-  render(<MyAccount urlBasePath = '/' user = {user} signUp={signUp} />, document.getElementById("root"))
+  render(<MyAccount user = {user} signUp={signUp} />, document.getElementById("root"))
 })
 
 function signUp() {

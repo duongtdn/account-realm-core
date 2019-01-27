@@ -410,6 +410,7 @@ export default class MyAccount extends Component {
     ]
   }
   render() {
+    const urlBasePath = this.props.urlBasePath || ''
     return (
       <div>
         <header className="w3-bar w3-blue">
@@ -428,7 +429,7 @@ export default class MyAccount extends Component {
                 activeTab = {this.state.tab}
                 onSelectTab = { (tab) => this.setState({ tab }) }
                 user = { this.props.user }
-                urlBasePath = { this.props.urlBasePath }
+                urlBasePath = { urlBasePath }
                 onSuccess = { data => console.log(data) }
                 onError = { err => console.log(err) }
           />
