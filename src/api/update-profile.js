@@ -10,7 +10,7 @@ function validateParameters() {
   }
 }
 
-function decodeToken() {
+function decodeToken(helpers) {
   return function(req, res, next) {
     const token = req.body.token
     helpers.Collections.Realms.find({ realmId: 'account' }, (realms) => {
