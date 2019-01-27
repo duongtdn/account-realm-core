@@ -39,7 +39,6 @@ function decodeCookie(cookies) {
       if (err) {
         reject(err)
       } else {
-        req.uid = decoded.uid
         resolve({ uid: decoded.uid, clientId: session.clientId })
       }
     })
