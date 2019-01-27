@@ -20,7 +20,7 @@ function decodeToken(helpers) {
         res.status(500).send('missing realm')
         return
       }
-      jwt.verify(token, realm[0].secret, (err, decoded) => {
+      jwt.verify(token, realms[0].secret, (err, decoded) => {
         if (err) {
           res.status(403).send('forbidden')  
         } else {
@@ -35,6 +35,7 @@ function decodeToken(helpers) {
 function updateProfile(helpers) {
   return function(req, res) {
     const profile = req.body.profile
+    const uid = req.uid
     helpers.Collections.Users.update({ uid }, { profile }, (err, updated) => {
       if (err) {
         res.status(500).send('DB access failed')
@@ -42,7 +43,6 @@ function updateProfile(helpers) {
         res.status(200).json({ profile })
       }
     })
-    res.status(200).json({ profile: req.body.profile })
   }  
 }
 
