@@ -1,5 +1,7 @@
 "use strict"
 
+const jwt = require('jsonwebtoken')
+
 function validateParameters() {
   return function(req, res, next) {
     if (!(req.body && req.body.token && req.body.profile)) {
