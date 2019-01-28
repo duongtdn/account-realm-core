@@ -404,22 +404,36 @@ export default class MyAccount extends Component {
     this.state = {
       tab: 'profile'
     }
+    this.renderHeader = this.renderHeader.bind(this)
+    this.renderBody = this.renderBody.bind(this)
     this.tabs = [
       { icon: 'fa-key', name: 'password', label: 'change password' }, 
       { icon: 'fa-address-card-o', name: 'profile', label: 'profile' }
     ]
   }
-  render() {
-    const urlBasePath = this.props.urlBasePath || ''
+  render() {    
     return (
       <div>
-        <header className="w3-bar w3-blue">
-          <div className="w3-right">
-            <button className="w3-bar-item w3-button" onClick={this.props.signUp}> Sign up</button>
-            <button className="w3-bar-item w3-button" onClick={this.props.signIn}> Sign in</button>
-            <button className="w3-bar-item w3-button" onClick={this.props.signOut}> Sign out</button>
-          </div>
-        </header>
+        { this.renderHeader() }        
+        { this.renderBody() }
+      </div>
+    )
+  }
+  renderHeader() {
+    return (
+      <header className="w3-bar w3-blue">
+        <div className="w3-right">
+          <button className="w3-bar-item w3-button" onClick={this.props.signUp}> Sign up</button>
+          <button className="w3-bar-item w3-button" onClick={this.props.signIn}> Sign in</button>
+          <button className="w3-bar-item w3-button" onClick={this.props.signOut}> Sign out</button>
+        </div>
+      </header>
+    )
+  }
+  renderBody() {
+    if (this.props.user) {
+      const urlBasePath = this.props.urlBasePath || ''
+      return (
         <div className = "w3-container">
           <SideBar  tabs = {this.tabs}
                     activeTab = {this.state.tab}
@@ -434,7 +448,13 @@ export default class MyAccount extends Component {
                 onError = { err => console.log(err) }
           />
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div className = "w3-container">
+          <h4> Please login to see contain </h4>
+        </div>
+      )
+    }
   }
 }
