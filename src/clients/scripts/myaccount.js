@@ -13,14 +13,6 @@ const acc = new AccountClient({
   baseurl: 'http://localhost:3100'
 })
 
-const user = {
-  username : 'awesome@team.com',
-  profile: {
-    fullName: 'Awesome Tester',    
-    email: ['awesome@team.com']
-  }
-}
-
 class UserProvider extends Component {
   constructor(props) {
     super(props)
