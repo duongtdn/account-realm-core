@@ -122,7 +122,7 @@ class UserProvider extends Component {
       user[key] = data
     })    
     this.setState( { user })
-    /* TBD: update localStorage */
+    acc.updateLocalSession('user', user)
   }
 }
 
