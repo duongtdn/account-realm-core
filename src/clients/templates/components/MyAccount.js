@@ -181,17 +181,16 @@ class TabProfile extends Component {
                           value = {email}
                           disabled = {index === 0}
                           onChange = {this.getTyped('email', index)}
-                  />
-                  <label  className = "w3-text-blue" 
-                          style = {{cursor: 'pointer', display: (index === this.state.email.length - 1) ? 'inline' : 'none'}} 
-                          onClick = {this.addMoreBox('email')} > 
-                    + Add more email 
-                  </label>
+                  />                  
                 </span>
               )
-
             })
           }
+          <label  className = "w3-text-blue" 
+                  style = {{cursor: 'pointer', display: 'block'}} 
+                  onClick = {this.addMoreBox('email')} > 
+            + Add more email 
+          </label>
         </p>
         {/* Phones */}
         <p>
@@ -205,17 +204,16 @@ class TabProfile extends Component {
                           type = "text"
                           value = {phone}
                           onChange = {this.getTyped('phone', index)}
-                  />
-                  <label  className = "w3-text-blue" 
-                          style = {{cursor: 'pointer', display: (index === this.state.phone.length - 1) ? 'inline' : 'none'}} 
-                          onClick = {this.addMoreBox('phone')} > 
-                    + Add more phone number 
-                  </label>
+                  />                  
                 </span>
               )
-
             })
           }
+          <label  className = "w3-text-blue" 
+                  style = {{cursor: 'pointer', display: 'block'}} 
+                  onClick = {this.addMoreBox('phone')} > 
+            + Add more phone number 
+          </label>
         </p>
         {/* Address */}
         <p>
@@ -230,9 +228,9 @@ class TabProfile extends Component {
         <hr />
 
         <p>
-          <button className="w3-button w3-blue w3-hover-blue w3-hover-opacity" onClick={this.updateProfile} disabled={this._isStateMatchOrigin()} > Save </button>
+          <button className="w3-button w3-blue w3-hover-blue w3-hover-opacity" onClick={this.updateProfile} disabled={this._isStateMatchOrigin() || this.state.syncing} > Save </button>
           <label style={{marginRight: '8px'}} />
-          <button className="w3-button" onClick={this.resetState} disabled={this._isStateMatchOrigin()} > Reset </button>
+          <button className="w3-button" onClick={this.resetState} disabled={this._isStateMatchOrigin() || this.state.syncing} > Reset </button>
         </p>
       </div>
     )
