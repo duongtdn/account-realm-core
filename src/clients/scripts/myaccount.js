@@ -17,7 +17,7 @@ class UserProvider extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: undefined
+      user: null
     }
     this.signIn = this.signIn.bind(this)
     this.signUp = this.signUp.bind(this)

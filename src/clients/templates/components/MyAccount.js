@@ -449,7 +449,7 @@ export default class MyAccount extends Component {
           />
         </div>
       )
-    } else {
+    } else if (this.props.user === undefined) {
       return (
         <div className = "w3-container">
           <h4> Please login to see contain </h4>
