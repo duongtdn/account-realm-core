@@ -416,8 +416,8 @@ export default class MyAccount extends Component {
         <header className="w3-bar w3-blue">
           <div className="w3-right">
             <button className="w3-bar-item w3-button" onClick={this.props.signUp}> Sign up</button>
-            <button id="signin" className="w3-bar-item w3-button"> Sign in</button>
-            <button id="signout" className="w3-bar-item w3-button"> Sign out</button>
+            <button className="w3-bar-item w3-button" onClick={this.props.signIn}> Sign in</button>
+            <button className="w3-bar-item w3-button" onClick={this.props.signOut}> Sign out</button>
           </div>
         </header>
         <div className = "w3-container">

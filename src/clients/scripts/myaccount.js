@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         break
     }
   })
-  render(<MyAccount user = {user} signUp={signUp} />, document.getElementById("root"))
+  render(<MyAccount user = {user} signUp={signUp} signIn={signIn} signOut={signOut} />, document.getElementById("root"))
 })
 
 function signUp() {
@@ -49,6 +49,41 @@ function signUp() {
         break
       case 404:
         console.log('no sign-in user')
+        break
+      case 503:
+        console.log(`Network timeout: Service unavailable`)
+        break
+      default:
+        console.log(`Unexpected return code: ${status}`)
+        break
+    }
+  })
+}
+
+function signIn() {
+  acc.signin((status, user) => {
+    switch (status) {
+      case 200:
+        console.log(`sign-in user: ${user.profile.displayName}<${user.profile.email[0]}>`)
+        break
+      case 404:
+        console.log('no sign-in user')
+        break
+      case 503:
+        console.log(`Network timeout: Service unavailable`)
+        break
+      default:
+        console.log(`Unexpected return code: ${status}`)
+        break
+    }
+  })
+}
+
+function signOut() {
+  acc.signout((status, user) => {
+    switch (status) {
+      case 200:
+        console.log(`user has signed out`)
         break
       case 503:
         console.log(`Network timeout: Service unavailable`)
