@@ -5,6 +5,7 @@ import { xhttp, storage } from 'authenform-utils'
 
 import PasswordBox from './widgets/PasswordBox'
 import NewPasswordBox from './widgets/NewPasswordBox'
+import Modal from './widgets/Modal'
 
 function _titleCase(str) {
   return str.charAt(0).toUpperCase() + str.substring(1)
@@ -113,6 +114,7 @@ class TabProfile extends Component {
   render() {
     return(
       <div className = "">
+        <Modal icon = 'fa-circle-o-notch w3-spin' message = 'Updating...' display = {this.state.syncing} />
         <h4> Profile </h4> 
         {/* Full Name */}
         <p > 
