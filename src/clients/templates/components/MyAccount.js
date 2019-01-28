@@ -6,6 +6,7 @@ import { xhttp, storage } from 'authenform-utils'
 import PasswordBox from './widgets/PasswordBox'
 import NewPasswordBox from './widgets/NewPasswordBox'
 import Modal from './widgets/Modal'
+import Toast from './widgets/Toast'
 
 function _titleCase(str) {
   return str.charAt(0).toUpperCase() + str.substring(1)
@@ -91,7 +92,7 @@ class TabPassword extends Component {
 class TabProfile extends Component {
   constructor(props) {
     super(props)
-    this.state = { error: {} }
+    this.state = { error: {}, toast: false }
     this.originProfile = {
       fullName: '',
       displayName: '',
@@ -115,6 +116,7 @@ class TabProfile extends Component {
     return(
       <div className = "">
         <Modal icon = 'fa-circle-o-notch w3-spin' message = 'Updating...' display = {this.state.syncing} />
+        <Toast title='Error' color='red' message={this.state.toast} display={this.state.toast} close={ _ => this.setState({ toast: false })} />
         <h4> Profile </h4> 
         {/* Full Name */}
         <p > 
@@ -297,6 +299,7 @@ class TabProfile extends Component {
         this.props.onSuccess && this.props.onSuccess([{key: 'profile', data: profile}])
       } else {
         const error = `Error: ${status}`
+        this.setState({ toast: `${error} - ${response}` })
         this.props.onError && this.props.onError(error)
       }
     })
@@ -415,7 +418,7 @@ export default class MyAccount extends Component {
     return (
       <div>
         { this.renderHeader() }        
-        { this.renderBody() }
+        { this.renderBody() }        
       </div>
     )
   }
