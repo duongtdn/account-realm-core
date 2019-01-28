@@ -294,7 +294,7 @@ class TabProfile extends Component {
     xhttp.put(`${this.props.urlBasePath}/me/profile`, { profile, token: storage.get('token') },  (status, response) => {
       this.setState({ syncing: false })
       if (status === 200) {
-        this.props.onSuccess && this.props.onSuccess(profile)
+        this.props.onSuccess && this.props.onSuccess([{key: 'profile', data: profile}])
       } else {
         const error = `Error: ${status}`
         this.props.onError && this.props.onError(error)
@@ -444,7 +444,7 @@ export default class MyAccount extends Component {
                 onSelectTab = { (tab) => this.setState({ tab }) }
                 user = { this.props.user }
                 urlBasePath = { urlBasePath }
-                onSuccess = { data => console.log(data) }
+                onSuccess = { this.props.onUserUpdated }
                 onError = { err => console.log(err) }
           />
         </div>

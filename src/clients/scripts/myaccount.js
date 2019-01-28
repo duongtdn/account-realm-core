@@ -30,6 +30,7 @@ class UserProvider extends Component {
     this.signIn = this.signIn.bind(this)
     this.signUp = this.signUp.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.updateUser = this.updateUser.bind(this)
   }
 
   componentWillMount() {
@@ -59,6 +60,7 @@ class UserProvider extends Component {
                   signUp={this.signUp} 
                   signIn={this.signIn} 
                   signOut={this.signOut} 
+                  onUserUpdated={this.updateUser} 
       />
     )
   }
@@ -122,6 +124,14 @@ class UserProvider extends Component {
     })
   }
 
+  updateUser(updated) {
+    const user = {...this.state.user}
+    updated.forEach( ({key, data}) => {
+      user[key] = data
+    })    
+    this.setState( { user })
+    /* TBD: update localStorage */
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {  
