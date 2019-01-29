@@ -34,6 +34,7 @@ class TabPassword extends Component {
                           app = 'account'
                           email = {this.props.user.profile.email[0]}
                           urlBasePath = {this.props.urlBasePath}
+                          hrefTarget = '_blank'
             />
           </div>
           <hr />
