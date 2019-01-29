@@ -17,6 +17,8 @@ export default class RequestRestPassword extends Component {
         <p> An email containing link to reset your password will be sent to <span className="w3-text-blue" style={{fontWeight: 'bold'}}> {this.props.email} </span> </p>
         <p> Click the button below to confirm your request </p>
         <button type = "submit" className = "w3-button w3-blue" > Submit Request <i className = "fa fa-paper-plane" /> </button>
+        {' '}
+        <button type = "button" className = "w3-button" onClick={this.props.close} style={{ display: (window.self === window.top)? 'none': 'inline'}} > Cancel </button>
       </form>
     )
   }
