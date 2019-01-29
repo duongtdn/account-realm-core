@@ -33,7 +33,7 @@ class Email extends Component {
     return (
       <div className={this._init? 'w3-animate-top': ''} style={{ display }}>
         <header > 
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}}>&times;</span>
           <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Create New Account </h3>
         </header>
         <p className="w3-text-blue-grey">
@@ -128,7 +128,7 @@ class Password extends Component {
     return (
       <div style = {{ display }} >
         <header >
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}}>&times;</span>
           <BackButton onClick = {this.props.back} />
         </header>
         <div className = "" >
@@ -168,7 +168,7 @@ class Profile extends Component {
       <div style = {{ display }} >
 
         <header >
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}}>&times;</span>
           <BackButton onClick = {this.props.back} />
         </header>
 
@@ -348,7 +348,7 @@ class Submit extends Component {
       <div style = {{ display }} >
 
         <header >
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}}>&times;</span>
           <BackButton onClick = {this.props.back} />
         </header>
 
@@ -437,7 +437,7 @@ class Welcome extends Component {
       <div className={`w3-animate-top`} style = {{ display }} >
         
         <header >
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}}>&times;</span>
         </header>
 
         <div className = "" >
@@ -462,7 +462,7 @@ class Welcome extends Component {
             Thank you for signing up and using our service.
           </p>
 
-          <div style = {{marginBottom: '72px'}}>
+          <div style = {{display: (window.self === window.top)? 'none': 'block', marginBottom: '72px'}}>
             <button className = {`w3-button w3-blue`}
                     onClick = {this.props.close} > 
               Close 

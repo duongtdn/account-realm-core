@@ -30,7 +30,7 @@ class Email extends Component {
     return (
       <div className={this._init? 'w3-animate-top': ''} style={{ display }}>
         <header > 
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}} >&times;</span>
           <h3 className="w3-text-blue" style={{fontWeight: "bold"}} > Sign In </h3>
         </header>
         <p className="w3-text-blue-grey">
@@ -146,7 +146,7 @@ class Password extends Component {
       <div style = {{ display }} >
 
         <header >
-          <span onClick={this.props.close} className="w3-button w3-right w3-red">&times;</span>
+          <span onClick={this.props.close} className="w3-button w3-right w3-red" style={{ display: (window.self === window.top)? 'none': 'block'}}>&times;</span>
           <BackButton onClick = {this.props.back} />
         </header>
 
