@@ -7,6 +7,7 @@ import PasswordBox from './widgets/PasswordBox'
 import NewPasswordBox from './widgets/NewPasswordBox'
 import Modal from './widgets/Modal'
 import Toast from './widgets/Toast'
+import Header from './widgets/Header'
 
 function _titleCase(str) {
   return str.charAt(0).toUpperCase() + str.substring(1)
@@ -408,30 +409,18 @@ export default class MyAccount extends Component {
     this.state = {
       tab: 'profile'
     }
-    this.renderHeader = this.renderHeader.bind(this)
     this.renderBody = this.renderBody.bind(this)
     this.tabs = [
       { icon: 'fa-key', name: 'password', label: 'change password' }, 
       { icon: 'fa-address-card-o', name: 'profile', label: 'profile' }
     ]
   }
-  render() {    
+  render() {   
     return (
       <div>
-        { this.renderHeader() }        
+        <Header accountClient = {this.props.accountClient} />
         { this.renderBody() }        
       </div>
-    )
-  }
-  renderHeader() {
-    return (
-      <header className="w3-bar w3-blue">
-        <div className="w3-right">
-          <button className="w3-bar-item w3-button" onClick={this.props.signUp}> Sign up</button>
-          <button className="w3-bar-item w3-button" onClick={this.props.signIn}> Sign in</button>
-          <button className="w3-bar-item w3-button" onClick={this.props.signOut}> Sign out</button>
-        </div>
-      </header>
     )
   }
   renderBody() {
