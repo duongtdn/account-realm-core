@@ -28,6 +28,5 @@ function updateUser(updated) {
   updated.forEach( ({key, data}) => {
     user[key] = data
   })    
-  console.log(user)
-  acc.updateLocalSession('user', user)
+  acc.updateLocalSession('user', user).emit('updated', user)
 }
