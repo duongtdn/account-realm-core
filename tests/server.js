@@ -13,7 +13,7 @@ const Realms = [
 
 const Apps = [
   {appId: 'account', url: 'http://localhost:3100'},
-  {appId: 'dev', url: 'http://localhost:3300'}
+  {appId: 'dev', url: 'http://localhost:3200'}
 ]
 
 const Users = [
