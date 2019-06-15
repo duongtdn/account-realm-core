@@ -29,6 +29,25 @@ const Users = [
       fullName: 'Initiator Tester'
     },
     verified: false
+  },
+  {
+    username: 'awesome@team.com',
+    uid: '4fc9d440-8f7a-11e9-95d5-315e185d3a06',
+    credentials: {
+      password: 'd3c9b2b2cf82bb549720d5b079fcd6fa9668fbc8ab76383f097f3fee01a062de'
+    },
+    profile: {
+      email: [ 'awesome@team.com' ],
+      fullName: 'Awesome Tester',
+      displayName: 'Tester',
+      gender: 'N/A',
+      phone: [],
+      address: 'N/A',
+      picture: undefined
+    },
+    realms: { account: true, realm: true },
+    verified: false,
+    createdAt: 1560609109893
   }
 ]
 
