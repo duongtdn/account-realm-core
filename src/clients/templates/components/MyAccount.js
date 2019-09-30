@@ -364,7 +364,8 @@ class SideBar extends Component {
 class Tabs extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { showDropdown: false }
+    this.toggleDropdown = this.toggleDropdown.bind(this)
   }
   render() {
     return (
@@ -379,9 +380,9 @@ class Tabs extends Component {
   }
   renderDropdown() {
     return (
-      <div className="w3-dropdown-hover" style={{background:'none', width: '100%'}}>
+      <div onClick={this.toggleDropdown} style={{background:'none', width: '100%'}}>
         <h4 style={{marginTop: '16px'}}> {this.props.activeTab.toUpperCase()} <i className="fa fa-caret-down w3-hide-medium w3-hide-large" /> </h4>
-        <div className="w3-dropdown-content w3-bar-block w3-card-4 w3-hide-medium w3-hide-large" style={{backgroundColor: '#f1f1f1'}}>
+        <div className={`w3-dropdown-content w3-bar-block w3-card-4 w3-hide-medium w3-hide-large`} style={{backgroundColor: '#f1f1f1', display: this.state.showDropdown? 'block': 'none'}}>
         {
           this.props.tabs.map(tab => (
             <button key={tab.name}  className={`w3-bar-item w3-button w3-border-bottom`} onClick={() => this.props.onSelectTab(tab.name)}>
@@ -400,7 +401,10 @@ class Tabs extends Component {
       onSuccess: this.props.onSuccess,
       onError: this.props.onError
     })
-  }  
+  }
+  toggleDropdown() {
+    this.setState({ showDropdown: !this.state.showDropdown })
+  }
 }
 
 export default class MyAccount extends Component {

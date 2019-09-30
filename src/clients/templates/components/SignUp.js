@@ -235,7 +235,7 @@ class Profile extends Component {
               }
             </p>
             <p>
-              <label>Address</label>
+              <label>Address <span style={{fontStyle: 'italic'}}> (Optional. Need for delivery) </span> </label>
               <input    className="w3-input w3-border"
                         type="text"
                         value={this.state.address}

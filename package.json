@@ -1,6 +1,6 @@
 {
   "name": "account-realm-core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "core apis of account-realm provider",
   "main": "src/main.js",
   "scripts": {
