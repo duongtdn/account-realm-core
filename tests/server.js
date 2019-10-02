@@ -2,19 +2,22 @@
 
 require('dotenv').config()
 
+const args = process.argv.slice(2)
+
 const path = require('path')
 const express = require('express')
 const api = require('../src/api/main')
 
-const Realms = [
-  {realmId: 'account', secret: 'realm-account-secret'},
-  {realmId: 'realm', secret: 'realm-secret'}
-]
 
-const Apps = [
-  {appId: 'account', url: 'http://localhost:3100'},
-  {appId: 'dev', url: 'http://localhost:3200'}
-]
+const Realms = process.env.REALM.split(' ').map( item => {
+  const s = item.split('|')
+  return { realmId: s[0], secret: s[1] }
+})
+
+const Apps = process.env.APP.split(' ').map( item => {
+  const s = item.split('|')
+  return { appId: s[0], url: s[1] }
+})
 
 const Users = [
   {
@@ -50,52 +53,49 @@ const Users = [
     createdAt: 1560609109893
   }
 ]
+const userdbDriver = {
+  find({username, uid}, done) {
+    setTimeout(() => {
+      done && done(Users.filter(_user => _user.username === username || _user.uid === uid))
+    }, 500)
+    return this
+  },
+  insert({user}, done) {
+    setTimeout(() => {
+      Users.push(user)
+      done && done(user)
+    }, 500)
+    return this
+  },
+  update({uid}, update, done) {
+    Users.forEach( _user => {
+      if (_user.uid === uid) {
+        for (let p in update) {
+          _user[p] = update[p]
+        }
+      }
+    })
+    setTimeout(() => {
+      done && done(null, update)
+    },500)
+  }
+}
 
 api.helpers({
   Collections: {
     Realms: {
       find({realmId}, done) {
-        setTimeout(() => {
-          done && done(Realms.filter(_realm=> _realm.realmId === realmId))
-        }, 500)
+        done && done(Realms.filter(_realm=> _realm.realmId === realmId))
         return this
       }
     },
     Apps: {
       find({realm, app}, done) {
-        setTimeout(() => {
-          done && done(Apps.filter(_app => _app.appId === app))
-        }, 500)
+        done && done(Apps.filter(_app => _app.appId === app))
         return this
       }
     },
-    Users: {
-      find({username, uid}, done) {
-        setTimeout(() => {
-          done && done(Users.filter(_user => _user.username === username || _user.uid === uid))
-        }, 500)
-        return this
-      },
-      insert({user}, done) {
-        setTimeout(() => {
-          Users.push(user)
-          done && done(user)
-        }, 500)
-        return this
-      },
-      update({uid}, update, done) {
-        Users.forEach( _user => {
-          if (_user.uid === uid) {
-            for (let p in update) {
-              _user[p] = update[p]
-            }
-          }
-        })
-        setTimeout(() => {
-          done && done(null, update)
-        },500)
-      }
-    }
+    Users: args[0] === 'local' ? userdbDriver : require('account-dynamodb-driver')
   }
 })
 

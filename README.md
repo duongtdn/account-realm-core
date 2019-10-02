@@ -66,4 +66,8 @@ EMAIL_SIGN_KEY=email-sign-key
 
 COOKIE_AUTHEN_KEY=cookie-authen-key
 
+REALM="realmId|secret realmId|secret ..."
+
+APP="appId|url appId|url"
+
 ```
